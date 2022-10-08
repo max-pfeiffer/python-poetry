@@ -9,7 +9,6 @@ from build.constants import (
     TARGET_ARCHITECTURES,
 )
 from build.images import PythonPoetryImage
-from tests.utils import ImageTagComponents
 
 
 @pytest.fixture(scope="session")

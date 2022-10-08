@@ -8,8 +8,6 @@ FROM ${OFFICIAL_PYTHON_IMAGE}
 LABEL maintainer="Max Pfeiffer <max@maxpfeiffer.ch>"
 
 # References:
-# https://docs.python.org/3/using/cmdline.html#envvar-PYTHONUNBUFFERED
-# https://docs.python.org/3/using/cmdline.html#envvar-PYTHONDONTWRITEBYTECODE
 # https://pip.pypa.io/en/stable/topics/caching/#avoiding-caching
 # https://pip.pypa.io/en/stable/cli/pip/?highlight=PIP_NO_CACHE_DIR#cmdoption-no-cache-dir
 # https://pip.pypa.io/en/stable/cli/pip/?highlight=PIP_DISABLE_PIP_VERSION_CHECK#cmdoption-disable-pip-version-check

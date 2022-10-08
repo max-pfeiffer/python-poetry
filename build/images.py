@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Union, Optional
+from typing import Optional
 
 import docker
 from docker.models.images import Image
@@ -7,8 +7,6 @@ from docker.models.images import Image
 from build.constants import (
     PYTHON_POETRY_IMAGE_NAME,
     BASE_IMAGES,
-    FAST_API_MULTISTAGE_IMAGE_NAME,
-    FAST_API_SINGLESTAGE_IMAGE_NAME,
     POETRY_VERSIONS,
 )
 
