@@ -17,7 +17,7 @@ class ImageTagComponents:
         target_architecture_index = [
             index
             for index, tag_part in enumerate(image_tag_parts)
-            if tag_part.startswith("python")
+            if tag_part.startswith("poetry")
         ][0]
 
         version: str = "-".join(image_tag_parts[:target_architecture_index])
