@@ -33,4 +33,4 @@ def test_poetry_configuration(
     poetry_version: str = POETRY_VERSIONS[
         image_tag_components.target_architecture
     ]
-    assert f"Poetry (version {poetry_version})" in output.decode("utf-8")
+    assert poetry_version in output.decode("utf-8")
