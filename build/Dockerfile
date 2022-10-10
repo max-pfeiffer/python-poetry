@@ -1,9 +1,8 @@
 # References: using official Python images
 # https://hub.docker.com/_/python
 ARG OFFICIAL_PYTHON_IMAGE
-ARG IMAGE_POETRY_VERSION
-ARG APPLICATION_SERVER_PORT
 FROM ${OFFICIAL_PYTHON_IMAGE}
+ARG POETRY_VERSION
 
 LABEL maintainer="Max Pfeiffer <max@maxpfeiffer.ch>"
 
@@ -18,7 +17,7 @@ LABEL maintainer="Max Pfeiffer <max@maxpfeiffer.ch>"
 ENV PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_VERSION=${IMAGE_POETRY_VERSION} \
+    POETRY_VERSION=${POETRY_VERSION} \
     POETRY_HOME="/opt/poetry"
 
 ENV PATH="$POETRY_HOME/bin:$PATH"

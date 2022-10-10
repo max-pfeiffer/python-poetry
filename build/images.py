@@ -39,7 +39,7 @@ class PythonPoetryImage(DockerImage):
 
         buildargs: dict[str, str] = {
             "OFFICIAL_PYTHON_IMAGE": BASE_IMAGES[target_architecture],
-            "IMAGE_POETRY_VERSION": POETRY_VERSIONS[target_architecture],
+            "POETRY_VERSION": POETRY_VERSIONS[target_architecture],
         }
         tag: str = f"{self.image_name}:{self.version_tag}-{target_architecture}"
 
