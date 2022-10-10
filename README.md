@@ -10,5 +10,7 @@ which uses [Poetry](https://python-poetry.org/) for dependency management.
    2. v1.1.15
    3. v1.2.2
 3. Python versions:
-   4. v3.9
+   4. v3.7
+   5. v3.8
+   6. v3.9
    5. v3.10
