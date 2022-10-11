@@ -6,7 +6,8 @@ ready to use. You can use this image as a builder base or base image for your
 own applications which use [Poetry](https://python-poetry.org/) for dependency
 management.
 
-Basis of this image are the [official Python Docker images](https://hub.docker.com/_/python).
+Basis of this image are the [official Python](https://hub.docker.com/_/python)
+and [Debian images](https://hub.docker.com/_/debian).
 
 **Docker Hub:** [pfeiffermax/python-poetry](https://hub.docker.com/repository/docker/pfeiffermax/python-poetry)
 
@@ -23,4 +24,6 @@ Basis of this image are the [official Python Docker images](https://hub.docker.c
 * v3.9
 * v3.10
 
-**Operating system:** [Debian Buster v10.13](https://www.debian.org/releases/buster/)
+**Operating system:**
+* [Debian Buster v10.13](https://www.debian.org/releases/buster/)
+* [Debian Buster slim v10.13](https://www.debian.org/releases/buster/)
