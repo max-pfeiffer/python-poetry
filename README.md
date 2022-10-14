@@ -25,5 +25,5 @@ and [Debian images](https://hub.docker.com/_/debian).
 * v3.10
 
 **Operating system:**
-* [Debian Buster v10.13](https://www.debian.org/releases/buster/)
-* [Debian Buster slim v10.13](https://www.debian.org/releases/buster/)
+* [Debian Bullseye v10.13](https://www.debian.org/releases/bullseye/)
+* [Debian Bullseye slim v10.13](https://www.debian.org/releases/bullseye/)
