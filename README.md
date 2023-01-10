@@ -11,7 +11,7 @@ management.
 Basis of this image are the [official Python](https://hub.docker.com/_/python)
 and [Debian images](https://hub.docker.com/_/debian).
 
-**Docker Hub:** [pfeiffermax/python-poetry](https://hub.docker.com/repository/docker/pfeiffermax/python-poetry)
+**Docker Hub:** [pfeiffermax/python-poetry](https://hub.docker.com/r/pfeiffermax/python-poetry)
 
 **GitHub Repository:** [https://github.com/max-pfeiffer/python-poetry](https://github.com/max-pfeiffer/python-poetry)
 
