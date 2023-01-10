@@ -2,7 +2,7 @@
 ![pipeline workflow](https://github.com/max-pfeiffer/python-poetry/actions/workflows/pipeline.yml/badge.svg)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/pfeiffermax/python-poetry?sort=semver)
 ![Docker Pulls](https://img.shields.io/docker/pulls/pfeiffermax/python-poetry)
-# python-poetry
+# python-poetry - Docker Image
 A Python Docker image with [Poetry](https://python-poetry.org/) installed and
 ready to use. You can use this image as a builder base or base image for your
 own applications which use [Poetry](https://python-poetry.org/) for dependency
@@ -11,7 +11,7 @@ management.
 Basis of this image are the [official Python](https://hub.docker.com/_/python)
 and [Debian images](https://hub.docker.com/_/debian).
 
-**Docker Hub:** [pfeiffermax/python-poetry](https://hub.docker.com/repository/docker/pfeiffermax/python-poetry)
+**Docker Hub:** [pfeiffermax/python-poetry](https://hub.docker.com/r/pfeiffermax/python-poetry)
 
 **GitHub Repository:** [https://github.com/max-pfeiffer/python-poetry](https://github.com/max-pfeiffer/python-poetry)
 
@@ -19,6 +19,7 @@ and [Debian images](https://hub.docker.com/_/debian).
 **Poetry versions:**
 * v1.1.15
 * v1.2.2
+* v1.3.2
 
 **Python versions:**
 * v3.7
