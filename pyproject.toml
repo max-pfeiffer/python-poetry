@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "3.9.*"
-python-dotenv = "0.21.0"
+python-dotenv = "1.0.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "2.15.10"
