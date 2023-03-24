@@ -13,9 +13,10 @@ jobs:
         with:
           python-version: 3.9
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.0.0
+        uses: snok/install-poetry@v1
         with:
-          poetry-version: 1.1.15
+          version: 1.4.1
+          virtualenvs-in-project: true
       - name: Install dependencies
         run: |
           poetry config virtualenvs.in-project true
@@ -41,9 +42,10 @@ jobs:
         with:
           python-version: 3.9
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.0.0
+        uses: snok/install-poetry@v1
         with:
-          poetry-version: 1.1.15
+          version: 1.4.1
+          virtualenvs-in-project: true
       - name: Install dependencies
         run: |
           poetry config virtualenvs.in-project true
@@ -76,9 +78,10 @@ jobs:
         with:
           python-version: 3.9
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.0.0
+        uses: snok/install-poetry@v1
         with:
-          poetry-version: 1.1.15
+          version: 1.4.1
+          virtualenvs-in-project: true
       - name: Install dependencies
         run: |
           poetry config virtualenvs.in-project true
