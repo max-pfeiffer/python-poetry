@@ -13,6 +13,7 @@ LABEL maintainer="Max Pfeiffer <max@maxpfeiffer.ch>"
 # https://pip.pypa.io/en/stable/cli/pip/?highlight=PIP_DEFAULT_TIMEOUT#cmdoption-timeout
 # https://pip.pypa.io/en/stable/topics/configuration/#environment-variables
 # https://python-poetry.org/docs/#installation
+# https://refspecs.linuxfoundation.org/FHS_2.3/fhs-2.3.html#OPTADDONAPPLICATIONSOFTWAREPACKAGES
 
 ENV PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \

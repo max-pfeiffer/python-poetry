@@ -17,9 +17,9 @@ and [Debian images](https://hub.docker.com/_/debian).
 
 ## Docker Image Features
 **Poetry versions:**
-* v1.1.15
 * v1.2.2
 * v1.3.2
+* v1.4.1
 
 **Python versions:**
 * v3.7
