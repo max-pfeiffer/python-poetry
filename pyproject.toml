@@ -17,7 +17,7 @@ coverage = "7.2.2"
 docker = "6.0.1"
 black = "23.3.0"
 pre-commit = "3.2.1"
-semver = "2.13.0"
+semver = "3.0.0"
 
 # https://docs.pytest.org/en/latest/reference/customize.html
 [tool.pytest.ini_options]
