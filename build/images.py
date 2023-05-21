@@ -40,9 +40,7 @@ class PythonPoetryImage(DockerImage):
         self.image_name = PYTHON_POETRY_IMAGE_NAME
 
     def build(self) -> Image:
-        self.image_tag = (
-            f"{self.version}-{self.target_architecture}"
-        )
+        self.image_tag = f"{self.version}-{self.target_architecture}"
 
         buildargs: dict[str, str] = {
             "OFFICIAL_PYTHON_IMAGE": BASE_IMAGES[self.target_architecture],

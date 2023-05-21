@@ -5,19 +5,19 @@ TARGET_ARCHITECTURES: list[str] = [
     "poetry1.3.2-python3.10.11-bullseye",
     "poetry1.3.2-python3.10.11-slim-bullseye",
     "poetry1.3.2-python3.11.3-bullseye",
-    "poetry1.3.2-python3.11.3-slim-bullseye",    
+    "poetry1.3.2-python3.11.3-slim-bullseye",
     "poetry1.4.2-python3.9.16-bullseye",
     "poetry1.4.2-python3.9.16-slim-bullseye",
     "poetry1.4.2-python3.10.11-bullseye",
     "poetry1.4.2-python3.10.11-slim-bullseye",
     "poetry1.4.2-python3.11.3-bullseye",
-    "poetry1.4.2-python3.11.3-slim-bullseye",    
+    "poetry1.4.2-python3.11.3-slim-bullseye",
     "poetry1.5.0-python3.9.16-bullseye",
     "poetry1.5.0-python3.9.16-slim-bullseye",
     "poetry1.5.0-python3.10.11-bullseye",
     "poetry1.5.0-python3.10.11-slim-bullseye",
     "poetry1.5.0-python3.11.3-bullseye",
-    "poetry1.5.0-python3.11.3-slim-bullseye",    
+    "poetry1.5.0-python3.11.3-slim-bullseye",
 ]
 BASE_IMAGES: dict = {
     TARGET_ARCHITECTURES[
@@ -37,7 +37,7 @@ BASE_IMAGES: dict = {
     ]: "python:3.11.3-bullseye@sha256:89cbc1829d74f72436c96302c49218291eb464705c726cc27d71c32fec1d9082",
     TARGET_ARCHITECTURES[
         5
-    ]: "python:3.11.3-slim-bullseye@sha256:551c9529e77896518ac5693d7e98ee5e12051d625de450ac2a68da1eae15ec87",    
+    ]: "python:3.11.3-slim-bullseye@sha256:551c9529e77896518ac5693d7e98ee5e12051d625de450ac2a68da1eae15ec87",
     TARGET_ARCHITECTURES[
         6
     ]: "python:3.9.16-bullseye@sha256:b8ddeb68904299c09a39aff59d4a713862253b137fdd7ace3a3b7ba0391971b1",
@@ -55,7 +55,7 @@ BASE_IMAGES: dict = {
     ]: "python:3.11.3-bullseye@sha256:89cbc1829d74f72436c96302c49218291eb464705c726cc27d71c32fec1d9082",
     TARGET_ARCHITECTURES[
         11
-    ]: "python:3.11.3-slim-bullseye@sha256:551c9529e77896518ac5693d7e98ee5e12051d625de450ac2a68da1eae15ec87",    
+    ]: "python:3.11.3-slim-bullseye@sha256:551c9529e77896518ac5693d7e98ee5e12051d625de450ac2a68da1eae15ec87",
     TARGET_ARCHITECTURES[
         12
     ]: "python:3.9.16-bullseye@sha256:b8ddeb68904299c09a39aff59d4a713862253b137fdd7ace3a3b7ba0391971b1",
@@ -73,7 +73,7 @@ BASE_IMAGES: dict = {
     ]: "python:3.11.3-bullseye@sha256:89cbc1829d74f72436c96302c49218291eb464705c726cc27d71c32fec1d9082",
     TARGET_ARCHITECTURES[
         17
-    ]: "python:3.11.3-slim-bullseye@sha256:551c9529e77896518ac5693d7e98ee5e12051d625de450ac2a68da1eae15ec87",        
+    ]: "python:3.11.3-slim-bullseye@sha256:551c9529e77896518ac5693d7e98ee5e12051d625de450ac2a68da1eae15ec87",
 }
 PYTHON_VERSIONS: dict = {
     TARGET_ARCHITECTURES[0]: "3.9.16",
@@ -87,13 +87,13 @@ PYTHON_VERSIONS: dict = {
     TARGET_ARCHITECTURES[8]: "3.10.11",
     TARGET_ARCHITECTURES[9]: "3.10.11",
     TARGET_ARCHITECTURES[10]: "3.11.3",
-    TARGET_ARCHITECTURES[11]: "3.11.3",    
+    TARGET_ARCHITECTURES[11]: "3.11.3",
     TARGET_ARCHITECTURES[12]: "3.9.16",
     TARGET_ARCHITECTURES[13]: "3.9.16",
     TARGET_ARCHITECTURES[14]: "3.10.11",
     TARGET_ARCHITECTURES[15]: "3.10.11",
     TARGET_ARCHITECTURES[16]: "3.11.3",
-    TARGET_ARCHITECTURES[17]: "3.11.3",    
+    TARGET_ARCHITECTURES[17]: "3.11.3",
 }
 POETRY_VERSIONS: dict = {
     TARGET_ARCHITECTURES[0]: "1.3.2",
@@ -113,5 +113,5 @@ POETRY_VERSIONS: dict = {
     TARGET_ARCHITECTURES[14]: "1.5.0",
     TARGET_ARCHITECTURES[15]: "1.5.0",
     TARGET_ARCHITECTURES[16]: "1.5.0",
-    TARGET_ARCHITECTURES[17]: "1.5.0",    
+    TARGET_ARCHITECTURES[17]: "1.5.0",
 }

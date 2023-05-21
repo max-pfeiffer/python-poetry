@@ -8,6 +8,7 @@ from build.images import PythonPoetryImage
 
 from docker.client import DockerClient
 
+
 @click.command()
 @click.option(
     "--docker-hub-username",
@@ -55,16 +56,14 @@ def main(
             }
             if registry:
                 login_kwargs["registry"] = registry
-                
+
             docker_client.login(**login_kwargs)
 
         if registry:
-            repository: str = (
-                f"{registry}/{new_python_poetry_image.image_name}"
-            )
+            repository: str = f"{registry}/{new_python_poetry_image.image_name}"
         else:
             repository: str = new_python_poetry_image.image_name
-            
+
         for line in docker_client.images.push(
             repository,
             tag=new_python_poetry_image.image_tag,
@@ -76,4 +75,5 @@ def main(
 
 
 if __name__ == "__main__":
+    # pylint: disable=no-value-for-parameter
     main()
