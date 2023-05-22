@@ -6,7 +6,7 @@ from build.constants import TARGET_ARCHITECTURES
 from build.images import PythonPoetryImage
 
 
-@pytest.fixture(scope="session", params=TARGET_ARCHITECTURES)
+@pytest.fixture(scope="package", params=TARGET_ARCHITECTURES)
 def python_poetry_image(
     docker_client: DockerClient, version: str, request
 ) -> str:
