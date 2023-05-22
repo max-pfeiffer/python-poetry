@@ -12,7 +12,9 @@ def python_poetry_image(
 ) -> str:
     target_architecture: str = request.param
 
-    python_poetry_image: Image = PythonPoetryImage(docker_client, target_architecture, version).build()
+    python_poetry_image: Image = PythonPoetryImage(
+        docker_client, target_architecture, version
+    ).build()
     image_tag: str = python_poetry_image.tags[0]
     yield image_tag
     docker_client.images.remove(image_tag, force=True)
