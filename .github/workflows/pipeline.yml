@@ -63,7 +63,6 @@ jobs:
       - name: Run all tests with pytest
         run: |
           source .venv/bin/activate
-          export DOCKER_BUILDKIT=1
           pytest --cov
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
