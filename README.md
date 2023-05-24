@@ -17,15 +17,14 @@ and [Debian images](https://hub.docker.com/_/debian).
 
 ## Docker Image Features
 **Poetry versions:**
-* v1.2.2
 * v1.3.2
-* v1.4.1
+* v1.4.2
+* v1.5.0
 
 **Python versions:**
-* v3.7
-* v3.8
 * v3.9
 * v3.10
+* v3.11
 
 **Operating system:**
 * [Debian Bullseye v10.13](https://www.debian.org/releases/bullseye/)
