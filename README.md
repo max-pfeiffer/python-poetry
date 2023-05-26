@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/max-pfeiffer/python-poetry/branch/main/graph/badge.svg?token=WQI2SJJLZN)](https://codecov.io/gh/max-pfeiffer/uvicorn-poetry)
+[![codecov](https://codecov.io/gh/max-pfeiffer/python-poetry/branch/main/graph/badge.svg?token=WQI2SJJLZN)](https://codecov.io/gh/max-pfeiffer/python-poetry)
 ![pipeline workflow](https://github.com/max-pfeiffer/python-poetry/actions/workflows/pipeline.yml/badge.svg)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/pfeiffermax/python-poetry?sort=semver)
 ![Docker Pulls](https://img.shields.io/docker/pulls/pfeiffermax/python-poetry)
