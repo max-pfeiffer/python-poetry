@@ -1,9 +1,8 @@
-from random import randrange
-
 import docker
 import pytest
 from docker.client import DockerClient
-from semver import VersionInfo
+from python_on_whales import Builder
+from python_on_whales import DockerClient as PowDockerClient
 
 
 @pytest.fixture(scope="session")
@@ -12,9 +11,15 @@ def docker_client() -> DockerClient:
 
 
 @pytest.fixture(scope="session")
-def version() -> str:
-    version: VersionInfo = VersionInfo(
-        major=randrange(100), minor=randrange(100), patch=randrange(100)
+def pow_docker_client() -> PowDockerClient:
+    return PowDockerClient()
+
+
+@pytest.fixture(scope="session")
+def pow_buildx_builder(pow_docker_client: PowDockerClient) -> Builder:
+    builder: Builder = pow_docker_client.buildx.create(
+        driver="docker-container", driver_options=dict(network="host")
     )
-    version_string: str = str(version)
-    return version_string
+    yield builder
+    pow_docker_client.buildx.stop(builder)
+    pow_docker_client.buildx.remove(builder)

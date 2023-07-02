@@ -115,3 +115,7 @@ POETRY_VERSIONS: dict = {
     TARGET_ARCHITECTURES[16]: "1.5.0",
     TARGET_ARCHITECTURES[17]: "1.5.0",
 }
+PLATFORMS: list[str] = [
+    "linux/amd64",
+    "linux/arm64",
+]

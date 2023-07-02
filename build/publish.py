@@ -34,7 +34,7 @@ def main(
 
     for target_architecture in TARGET_ARCHITECTURES:
         new_python_poetry_image: PythonPoetryImage = PythonPoetryImage(
-            docker_client, target_architecture, version_tag
+            docker_client, None, target_architecture, version_tag
         )
 
         # Delete old existing images

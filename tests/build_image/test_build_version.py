@@ -1,8 +1,11 @@
 from tests.utils import ImageTagComponents
+from tests.constants import VERSION, IMAGE_TAGS
+import pytest
 
 
-def test_build_version(python_poetry_image, version) -> None:
+@pytest.mark.parametrize("image_tag", IMAGE_TAGS)
+def test_build_version(image_tag) -> None:
     components: ImageTagComponents = ImageTagComponents.create_from_tag(
-        python_poetry_image
+        image_tag
     )
-    assert components.version == version
+    assert components.version == VERSION
