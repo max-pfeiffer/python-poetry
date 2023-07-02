@@ -1,12 +1,8 @@
 import click
-import docker
-from build.constants import (
-    TARGET_ARCHITECTURES,
-    PYTHON_POETRY_IMAGE_NAME,
-)
-from build.images import PythonPoetryImage
 
-from docker.client import DockerClient
+from build.utils import get_docker_bake_file, get_context
+from pathlib import Path
+from python_on_whales import DockerClient, Builder
 
 
 @click.command()
@@ -30,48 +26,37 @@ def main(
     version_tag: str,
     registry: str,
 ) -> None:
-    docker_client: DockerClient = docker.from_env()
+    context: Path = get_context()
+    bake_file: Path = get_docker_bake_file()
+    variables: dict = {
+        "CONTEXT": str(context),
+        "IMAGE_VERSION": version_tag,
+    }
+    if registry:
+        variables["REGISTRY"] = registry
 
-    for target_architecture in TARGET_ARCHITECTURES:
-        new_python_poetry_image: PythonPoetryImage = PythonPoetryImage(
-            docker_client, None, target_architecture, version_tag
-        )
+    docker_client: DockerClient = DockerClient()
+    builder: Builder = docker_client.buildx.create(
+        driver="docker-container", driver_options=dict(network="host")
+    )
 
-        # Delete old existing images
-        for old_image in docker_client.images.list(
-            new_python_poetry_image.image_name
-        ):
-            for tag in old_image.tags:
-                docker_client.images.remove(tag, force=True)
+    docker_client.login(
+        server=registry,
+        username=docker_hub_username,
+        password=docker_hub_password,
+    )
+    build_config: dict = docker_client.buildx.bake(
+        targets=["python-poetry"],
+        builder=builder,
+        files=[bake_file],
+        variables=variables,
+        push=True,
+    )
+    print(build_config)
 
-        new_python_poetry_image.build()
-
-        # https://docs.docker.com/engine/reference/commandline/push/
-        # https://docs.docker.com/engine/reference/commandline/tag/
-        # https://docs.docker.com/engine/reference/commandline/image_tag/
-        if docker_hub_username and docker_hub_password:
-            login_kwargs: dict = {
-                "username": docker_hub_username,
-                "password": docker_hub_password,
-            }
-            if registry:
-                login_kwargs["registry"] = registry
-
-            docker_client.login(**login_kwargs)
-
-        if registry:
-            repository: str = f"{registry}/{new_python_poetry_image.image_name}"
-        else:
-            repository: str = new_python_poetry_image.image_name
-
-        for line in docker_client.images.push(
-            repository,
-            tag=new_python_poetry_image.image_tag,
-            stream=True,
-            decode=True,
-        ):
-            print(line)
-    docker_client.close()
+    # Cleanup
+    docker_client.buildx.stop(builder)
+    docker_client.buildx.remove(builder)
 
 
 if __name__ == "__main__":

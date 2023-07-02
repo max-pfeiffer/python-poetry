@@ -1,9 +1,6 @@
 import pytest
 from docker.models.containers import Container
 
-from build.constants import (
-    PYTHON_VERSIONS,
-)
 from tests.constants import IMAGE_TAGS
 from tests.utils import ImageTagComponents
 

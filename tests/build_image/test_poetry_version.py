@@ -1,7 +1,6 @@
 import pytest
 from docker.models.containers import Container
 
-from build.constants import POETRY_VERSIONS
 from tests.constants import IMAGE_TAGS
 from tests.utils import ImageTagComponents
 

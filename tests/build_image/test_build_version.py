@@ -1,6 +1,7 @@
-from tests.utils import ImageTagComponents
-from tests.constants import VERSION, IMAGE_TAGS
 import pytest
+
+from tests.constants import IMAGE_TAGS, VERSION
+from tests.utils import ImageTagComponents
 
 
 @pytest.mark.parametrize("image_tag", IMAGE_TAGS)

@@ -1,13 +1,9 @@
 variable "REGISTRY" {
-  default = null
+  default = "docker.io"
 }
 
 variable "IMAGE_VERSION" {
   default = null
-}
-
-variable "IMAGE_NAME" {
-  default = "pfeiffermax/python-poetry"
 }
 
 variable "CONTEXT" {
@@ -31,5 +27,5 @@ target "python-poetry" {
 
   platforms = ["linux/amd64", "linux/arm64"]
 
-  tags = ["${REGISTRY}/${IMAGE_NAME}:${IMAGE_VERSION}-poetry${poetry_version}-python${python_version}-${os_variant}"]
+  tags = ["${REGISTRY}/pfeiffermax/python-poetry:${IMAGE_VERSION}-poetry${poetry_version}-python${python_version}-${os_variant}"]
 }

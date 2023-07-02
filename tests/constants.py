@@ -1,8 +1,9 @@
-from random import randrange
-from semver import VersionInfo
-from build.utils import get_docker_bake_file, get_context
 from pathlib import Path
-from tests.utils import generate_image_tags
+from random import randrange
+
+from semver import VersionInfo
+
+from build.utils import generate_image_tags, get_context, get_docker_bake_file
 
 SLEEP_TIME: float = 3.0
 REGISTRY_USERNAME: str = "foo"
