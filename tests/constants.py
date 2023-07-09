@@ -3,7 +3,8 @@ from random import randrange
 
 from semver import VersionInfo
 
-from build.utils import generate_image_tags, get_context, get_docker_bake_file
+from build.utils import get_context, get_docker_bake_file
+from tests.utils import generate_image_references
 
 SLEEP_TIME: float = 3.0
 REGISTRY_USERNAME: str = "foo"
@@ -15,4 +16,6 @@ VERSION: str = str(
 )
 BAKE_FILE: Path = get_docker_bake_file()
 CONTEXT: Path = get_context()
-IMAGE_TAGS: list[str] = generate_image_tags(BAKE_FILE, CONTEXT, VERSION)
+IMAGE_REFERENCES: list[str] = generate_image_references(
+    BAKE_FILE, CONTEXT, VERSION
+)

@@ -43,7 +43,7 @@ def test_registry_with_images(
 
     response_image_tags: list[str] = response.json()["tags"]
     image_tags: list[str] = [
-        ImageTagComponents.create_from_tag(reference).tag
+        ImageTagComponents.create_from_reference(reference).tag
         for reference in images
     ]
     difference = set(image_tags).difference(set(response_image_tags))
