@@ -1,4 +1,3 @@
-import pytest
 from click.testing import CliRunner, Result
 from python_on_whales import DockerException
 
@@ -7,7 +6,6 @@ from tests.constants import REGISTRY_PASSWORD, REGISTRY_USERNAME, VERSION
 from tests.registry_container import DockerRegistryContainer
 
 
-@pytest.mark.usefixtures("cleanup_images")
 def test_registry_with_credentials(cli_runner: CliRunner):
     with DockerRegistryContainer(
         username=REGISTRY_USERNAME, password=REGISTRY_PASSWORD
@@ -28,7 +26,6 @@ def test_registry_with_credentials(cli_runner: CliRunner):
         assert result.exit_code == 0
 
 
-@pytest.mark.usefixtures("cleanup_images")
 def test_registry_with_wrong_credentials(cli_runner: CliRunner):
     with DockerRegistryContainer(
         username=REGISTRY_USERNAME, password=REGISTRY_PASSWORD
