@@ -1,5 +1,3 @@
-from time import sleep
-
 from furl import furl
 from requests import Response, get
 from requests.auth import HTTPBasicAuth
@@ -12,9 +10,6 @@ BASIC_AUTH: HTTPBasicAuth = HTTPBasicAuth(REGISTRY_USERNAME, REGISTRY_PASSWORD)
 
 
 def test_registry(registry_container: DockerRegistryContainer):
-    # Wait for the registry container to come up
-    sleep(1.0)
-
     furl_item: furl = furl(f"http://{registry_container.get_registry()}")
     furl_item.path /= "v2/_catalog"
 

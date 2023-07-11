@@ -4,7 +4,7 @@ from python_on_whales import DockerClient, Builder
 
 @pytest.fixture(scope="session")
 def docker_client() -> DockerClient:
-    return DockerClient()
+    return DockerClient(debug=True)
 
 
 @pytest.fixture(scope="session")
