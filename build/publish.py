@@ -49,6 +49,7 @@ def main(
         targets=["python-poetry"],
         builder=builder,
         files=[bake_file],
+        set={"*.cache-from": "type=gha", "*.cache-to": "type=gha,mode=max"},
         variables=variables,
         push=True,
     )
