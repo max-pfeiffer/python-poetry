@@ -42,7 +42,8 @@ def images(
         targets=["python-poetry"],
         builder=pow_buildx_builder,
         files=[BAKE_FILE],
-        set={"*.cache-to": '"type=gha,mode=max"', "*.cache-from": '"type=gha"'},
+        # set={"*.cache-to": '"type=gha,mode=max"', "*.cache-from": '"type=gha"'},
+        set={"*.cache-to": '"type=gha"', "*.cache-from": '"type=gha"'},
         variables=dict(
             REGISTRY=registry_container.get_registry(),
             CONTEXT=CONTEXT,
