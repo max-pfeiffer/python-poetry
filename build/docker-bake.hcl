@@ -28,4 +28,12 @@ target "python-poetry" {
   platforms = ["linux/amd64", "linux/arm64/v8"]
 
   tags = ["${REGISTRY}/pfeiffermax/python-poetry:${IMAGE_VERSION}-poetry${poetry_version}-python${python_version}-${os_variant}"]
+
+  cache-to = [
+    "type=gha,mode=max"
+  ]
+
+  cache-from = [
+    "type=gha"
+  ]
 }
