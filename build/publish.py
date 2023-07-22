@@ -20,11 +20,18 @@ from python_on_whales import DockerClient, Builder
     "--version-tag", envvar="GIT_TAG_NAME", required=True, help="Version Tag"
 )
 @click.option("--registry", envvar="REGISTRY", help="Docker registry")
+@click.option(
+    "--use-local-cache-storage-backend",
+    envvar="USE_LOCAL_CACHE_STORAGE_BACKEND",
+    is_flag=True,
+    help="Use local cache storage backend for docker builds",
+)
 def main(
     docker_hub_username: str,
     docker_hub_password: str,
     version_tag: str,
     registry: str,
+    use_local_cache_storage_backend: bool,
 ) -> None:
     context: Path = get_context()
     bake_file: Path = get_docker_bake_file()
@@ -32,6 +39,14 @@ def main(
         "CONTEXT": str(context),
         "IMAGE_VERSION": version_tag,
     }
+
+    bake_file_overrides: dict = {}
+    if use_local_cache_storage_backend:
+        bake_file_overrides = {
+            "*.cache-to": "type=local,mode=max",
+            "*.cache-from": "type=local",
+        }
+
     if registry:
         variables["REGISTRY"] = registry
 
@@ -50,6 +65,7 @@ def main(
         builder=builder,
         files=[bake_file],
         variables=variables,
+        set=bake_file_overrides,
         push=True,
     )
     print(build_config)

@@ -11,6 +11,7 @@ from tests.constants import (
 )
 from tests.registry_container import DockerRegistryContainer
 from tests.utils import extract_image_references_from_build_config
+from os import getenv
 
 
 @pytest.fixture(scope="package")
@@ -38,6 +39,14 @@ def images(
         username=REGISTRY_USERNAME,
         password=REGISTRY_PASSWORD,
     )
+
+    bake_file_overrides: dict = {}
+    if getenv("USE_LOCAL_CACHE_STORAGE_BACKEND"):
+        bake_file_overrides = {
+            "*.cache-to": "type=local,mode=max",
+            "*.cache-from": "type=local",
+        }
+
     build_config: dict = docker_client.buildx.bake(
         targets=["python-poetry"],
         builder=pow_buildx_builder,
@@ -47,6 +56,7 @@ def images(
             CONTEXT=CONTEXT,
             IMAGE_VERSION=VERSION,
         ),
+        set=bake_file_overrides,
         push=True,
     )
     image_references: list[str] = extract_image_references_from_build_config(
