@@ -1,17 +1,9 @@
 import pytest
 from click.testing import CliRunner
-from docker.client import DockerClient
+from python_on_whales import DockerClient, Image
 
 
 @pytest.fixture(scope="package")
 def cli_runner() -> CliRunner:
     runner = CliRunner()
     return runner
-
-
-@pytest.fixture(scope="package")
-def cleanup_images(docker_client: DockerClient):
-    yield
-    for old_image in docker_client.images.list("pfeiffermax/python-poetry"):
-        for tag in old_image.tags:
-            docker_client.images.remove(tag, force=True)

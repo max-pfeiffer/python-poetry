@@ -1,12 +1,8 @@
 import click
-import docker
-from build.constants import (
-    TARGET_ARCHITECTURES,
-    PYTHON_POETRY_IMAGE_NAME,
-)
-from build.images import PythonPoetryImage
 
-from docker.client import DockerClient
+from build.utils import get_docker_bake_file, get_context
+from pathlib import Path
+from python_on_whales import DockerClient, Builder
 
 
 @click.command()
@@ -24,54 +20,59 @@ from docker.client import DockerClient
     "--version-tag", envvar="GIT_TAG_NAME", required=True, help="Version Tag"
 )
 @click.option("--registry", envvar="REGISTRY", help="Docker registry")
+@click.option(
+    "--use-local-cache-storage-backend",
+    envvar="USE_LOCAL_CACHE_STORAGE_BACKEND",
+    is_flag=True,
+    help="Use local cache storage backend for docker builds",
+)
 def main(
     docker_hub_username: str,
     docker_hub_password: str,
     version_tag: str,
     registry: str,
+    use_local_cache_storage_backend: bool,
 ) -> None:
-    docker_client: DockerClient = docker.from_env()
+    context: Path = get_context()
+    bake_file: Path = get_docker_bake_file()
+    variables: dict = {
+        "CONTEXT": str(context),
+        "IMAGE_VERSION": version_tag,
+    }
 
-    for target_architecture in TARGET_ARCHITECTURES:
-        new_python_poetry_image: PythonPoetryImage = PythonPoetryImage(
-            docker_client, target_architecture, version_tag
-        )
+    bake_file_overrides: dict = {}
+    if use_local_cache_storage_backend:
+        bake_file_overrides = {
+            "*.cache-to": "type=local,mode=max",
+            "*.cache-from": "type=local",
+        }
 
-        # Delete old existing images
-        for old_image in docker_client.images.list(
-            new_python_poetry_image.image_name
-        ):
-            for tag in old_image.tags:
-                docker_client.images.remove(tag, force=True)
+    if registry:
+        variables["REGISTRY"] = registry
 
-        new_python_poetry_image.build()
+    docker_client: DockerClient = DockerClient()
+    builder: Builder = docker_client.buildx.create(
+        driver="docker-container", driver_options=dict(network="host")
+    )
 
-        # https://docs.docker.com/engine/reference/commandline/push/
-        # https://docs.docker.com/engine/reference/commandline/tag/
-        # https://docs.docker.com/engine/reference/commandline/image_tag/
-        if docker_hub_username and docker_hub_password:
-            login_kwargs: dict = {
-                "username": docker_hub_username,
-                "password": docker_hub_password,
-            }
-            if registry:
-                login_kwargs["registry"] = registry
+    docker_client.login(
+        server=registry,
+        username=docker_hub_username,
+        password=docker_hub_password,
+    )
+    build_config: dict = docker_client.buildx.bake(
+        targets=["python-poetry"],
+        builder=builder,
+        files=[bake_file],
+        variables=variables,
+        set=bake_file_overrides,
+        push=True,
+    )
+    print(build_config)
 
-            docker_client.login(**login_kwargs)
-
-        if registry:
-            repository: str = f"{registry}/{new_python_poetry_image.image_name}"
-        else:
-            repository: str = new_python_poetry_image.image_name
-
-        for line in docker_client.images.push(
-            repository,
-            tag=new_python_poetry_image.image_tag,
-            stream=True,
-            decode=True,
-        ):
-            print(line)
-    docker_client.close()
+    # Cleanup
+    docker_client.buildx.stop(builder)
+    docker_client.buildx.remove(builder)
 
 
 if __name__ == "__main__":

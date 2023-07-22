@@ -11,6 +11,8 @@ management.
 Basis of this image are the [official Python](https://hub.docker.com/_/python)
 and [Debian images](https://hub.docker.com/_/debian).
 
+This multiarch image supports AMD64 and ARM64 architectures.
+
 **Docker Hub:** [pfeiffermax/python-poetry](https://hub.docker.com/r/pfeiffermax/python-poetry)
 
 **GitHub Repository:** [https://github.com/max-pfeiffer/python-poetry](https://github.com/max-pfeiffer/python-poetry)
@@ -19,7 +21,7 @@ and [Debian images](https://hub.docker.com/_/debian).
 **Poetry versions:**
 * v1.3.2
 * v1.4.2
-* v1.5.0
+* v1.5.1
 
 **Python versions:**
 * v3.9
@@ -29,3 +31,7 @@ and [Debian images](https://hub.docker.com/_/debian).
 **Operating system:**
 * [Debian Bullseye v10.13](https://www.debian.org/releases/bullseye/)
 * [Debian Bullseye slim v10.13](https://www.debian.org/releases/bullseye/)
+
+**CPU architectures**
+* linux/amd64
+* linux/arm64

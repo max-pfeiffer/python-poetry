@@ -1,40 +1,22 @@
-from time import sleep
-from uuid import uuid4
-
 import pytest
-from docker.models.containers import Container
+from python_on_whales import Container, DockerClient
 
-from build.constants import (
-    PYTHON_VERSIONS,
-)
-from tests.constants import SLEEP_TIME
+from tests.constants import IMAGE_REFERENCES
 from tests.utils import ImageTagComponents
 
 
-@pytest.mark.parametrize(
-    "cleaned_up_test_container", [str(uuid4())], indirect=True
-)
+@pytest.mark.parametrize("image_reference", IMAGE_REFERENCES)
+@pytest.mark.usefixtures("images")
 def test_python_version(
-    docker_client,
-    python_poetry_image,
-    cleaned_up_test_container,
+    docker_client: DockerClient,
+    image_reference: str,
 ) -> None:
-    image_tag_components: ImageTagComponents = (
-        ImageTagComponents.create_from_tag(python_poetry_image)
-    )
-
-    test_container: Container = docker_client.containers.run(
-        python_poetry_image,
-        name=cleaned_up_test_container,
-        detach=True,
-        tty=True,
-    )
-    sleep(SLEEP_TIME)
-
-    (exit_code, output) = test_container.exec_run(["python", "--version"])
-    assert exit_code == 0
-
-    version_string: str = (
-        f"Python {PYTHON_VERSIONS[image_tag_components.target_architecture]}"
-    )
-    assert version_string in output.decode("utf-8")
+    container: Container
+    with docker_client.container.run(
+        image_reference, detach=True, interactive=True, tty=True
+    ) as container:
+        output = container.execute(["python", "--version"])
+        image_tag_components: ImageTagComponents = (
+            ImageTagComponents.create_from_reference(image_reference)
+        )
+        assert image_tag_components.python_version in output
