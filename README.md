@@ -29,9 +29,9 @@ This multiarch image supports AMD64 and ARM64 architectures.
 * v3.11
 
 **Operating system:**
-* [Debian Bullseye v10.13](https://www.debian.org/releases/bullseye/)
-* [Debian Bullseye slim v10.13](https://www.debian.org/releases/bullseye/)
+* [Debian Bookworm v12.1](https://www.debian.org/releases/bookworm/)
+* [Debian Bookworm slim v12.1](https://www.debian.org/releases/bookworm/)
 
 **CPU architectures**
 * linux/amd64
-* linux/arm64
+* linux/arm64/v8
