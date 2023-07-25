@@ -24,11 +24,21 @@ ENV PIP_NO_CACHE_DIR=off \
 ENV PATH="$POETRY_HOME/bin:$PATH"
 
 # https://python-poetry.org/docs/#osx--linux--bashonwindows-install-instructions
-RUN apt-get update \
+RUN --mount=type=tmpfs,target=/root/.cargo apt-get update \
     && apt-get install --no-install-recommends -y \
         build-essential \
+        libssl-dev \
+        libffi-dev \
+        python3-dev \
+        cargo \
+        pkg-config \
         curl \
     && curl -sSL https://install.python-poetry.org | python - \
     && apt-get purge --auto-remove -y \
       build-essential \
+      libssl-dev \
+      libffi-dev \
+      python3-dev \
+      cargo \
+      pkg-config \
       curl
