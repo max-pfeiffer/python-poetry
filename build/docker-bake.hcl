@@ -26,7 +26,7 @@ target "python-poetry" {
     OFFICIAL_PYTHON_IMAGE = "python:${python_version}-${os_variant}"
   }
 
-  platforms = ["linux/amd64", "linux/arm/v7", "linux/arm64/v8"]
+  platforms = ["linux/amd64", "linux/arm64/v8"]
 
   tags = ["${REGISTRY}/pfeiffermax/python-poetry:${IMAGE_VERSION}-poetry${poetry_version}-python${python_version}-${os_variant}"]
 

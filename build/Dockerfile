@@ -23,16 +23,12 @@ ENV PIP_NO_CACHE_DIR=off \
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
-        build-essential \
-        libssl-dev \
-        libffi-dev \
-        python3-dev \
-        cargo \
-        pkg-config
+        build-essential
 
 # https://python-poetry.org/docs/#installing-manually
-RUN python -m venv ${POETRY_HOME} && ${POETRY_HOME}/bin/pip install -U pip setuptools
-RUN --mount=type=tmpfs,target=/root/.cargo ${POETRY_HOME}/bin/pip install "poetry==${POETRY_VERSION}"
+RUN python -m venv ${POETRY_HOME}
+RUN ${POETRY_HOME}/bin/pip install -U pip setuptools
+RUN ${POETRY_HOME}/bin/pip install "poetry==${POETRY_VERSION}"
 
 FROM ${OFFICIAL_PYTHON_IMAGE} as production-image
 
