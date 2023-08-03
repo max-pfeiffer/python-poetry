@@ -1,7 +1,7 @@
 # References: using official Python images
 # https://hub.docker.com/_/python
 ARG OFFICIAL_PYTHON_IMAGE
-FROM ${OFFICIAL_PYTHON_IMAGE}
+FROM ${OFFICIAL_PYTHON_IMAGE} as build-stage
 ARG POETRY_VERSION
 
 LABEL maintainer="Max Pfeiffer <max@maxpfeiffer.ch>"
@@ -21,14 +21,17 @@ ENV PIP_NO_CACHE_DIR=off \
     POETRY_VERSION=${POETRY_VERSION} \
     POETRY_HOME="/opt/poetry"
 
-ENV PATH="$POETRY_HOME/bin:$PATH"
-
-# https://python-poetry.org/docs/#osx--linux--bashonwindows-install-instructions
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
-        build-essential \
-        curl \
-    && curl -sSL https://install.python-poetry.org | python - \
-    && apt-get purge --auto-remove -y \
-      build-essential \
-      curl
+        build-essential
+
+# https://python-poetry.org/docs/#installing-manually
+RUN python -m venv ${POETRY_HOME}
+RUN ${POETRY_HOME}/bin/pip install -U pip setuptools
+RUN ${POETRY_HOME}/bin/pip install "poetry==${POETRY_VERSION}"
+
+FROM ${OFFICIAL_PYTHON_IMAGE} as production-image
+
+ENV PATH="/opt/poetry/bin:$PATH"
+
+COPY --from=build-stage /opt/poetry /opt/poetry/
