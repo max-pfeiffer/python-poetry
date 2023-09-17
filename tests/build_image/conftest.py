@@ -43,8 +43,8 @@ def images(
     bake_file_overrides: dict = {}
     if getenv("USE_LOCAL_CACHE_STORAGE_BACKEND"):
         bake_file_overrides = {
-            "*.cache-to": "type=local,mode=max",
-            "*.cache-from": "type=local",
+            "*.cache-to": "type=local,mode=max,dest=/tmp",
+            "*.cache-from": "type=local,src=/tmp",
         }
 
     build_config: dict = docker_client.buildx.bake(
