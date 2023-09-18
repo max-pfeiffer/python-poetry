@@ -43,8 +43,8 @@ def main(
     bake_file_overrides: dict = {}
     if use_local_cache_storage_backend:
         bake_file_overrides = {
-            "*.cache-to": "type=local,mode=max",
-            "*.cache-from": "type=local",
+            "*.cache-to": "type=local,mode=max,dest=/tmp",
+            "*.cache-from": "type=local,src=/tmp",
         }
 
     if registry:

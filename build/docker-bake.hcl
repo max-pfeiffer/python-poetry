@@ -16,9 +16,9 @@ target "python-poetry" {
   target = "production-image"
 
   matrix = {
-    python_version = ["3.9.17", "3.10.12", "3.11.4"]
+    python_version = ["3.9.18", "3.10.13", "3.11.5"]
     os_variant = ["bookworm", "slim-bookworm"]
-    poetry_version = ["1.3.2", "1.4.2", "1.5.1"]
+    poetry_version = ["1.4.2", "1.5.1", "1.6.1"]
   }
   
   args = {
