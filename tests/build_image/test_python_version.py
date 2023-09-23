@@ -1,12 +1,8 @@
-import pytest
 from python_on_whales import Container, DockerClient
 
-from tests.constants import IMAGE_REFERENCES
 from tests.utils import ImageTagComponents
 
 
-@pytest.mark.parametrize("image_reference", IMAGE_REFERENCES)
-@pytest.mark.usefixtures("images")
 def test_python_version(
     docker_client: DockerClient,
     image_reference: str,

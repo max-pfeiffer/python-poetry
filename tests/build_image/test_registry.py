@@ -19,7 +19,7 @@ def test_registry(registry_container: DockerRegistryContainer):
 
 
 def test_registry_with_images(
-    registry_container: DockerRegistryContainer, images: list[str]
+    registry_container: DockerRegistryContainer, image_reference: str
 ):
     furl_item: furl = furl(f"http://{registry_container.get_registry()}")
     furl_item.path /= "v2/_catalog"
@@ -37,10 +37,8 @@ def test_registry_with_images(
     assert response.status_code == 200
 
     response_image_tags: list[str] = response.json()["tags"]
-    image_tags: list[str] = [
-        ImageTagComponents.create_from_reference(reference).tag
-        for reference in images
-    ]
-    difference = set(image_tags).difference(set(response_image_tags))
+    image_tag: str = ImageTagComponents.create_from_reference(
+        image_reference
+    ).tag
 
-    assert not difference
+    assert image_tag in response_image_tags
