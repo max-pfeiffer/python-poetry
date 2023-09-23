@@ -1,6 +1,6 @@
 import click
 
-from build.utils import get_docker_bake_file, get_context
+from build.utils import get_context
 from pathlib import Path
 from python_on_whales import DockerClient, Builder
 
@@ -17,9 +17,29 @@ from python_on_whales import DockerClient, Builder
     help="Docker Hub password",
 )
 @click.option(
-    "--version-tag", envvar="GIT_TAG_NAME", required=True, help="Version Tag"
+    "--version-tag", envvar="GIT_TAG_NAME", required=True, help="Version tag"
 )
-@click.option("--registry", envvar="REGISTRY", help="Docker registry")
+@click.option(
+    "--python-version",
+    envvar="PYTHON_VERSION",
+    required=True,
+    help="Python version",
+)
+@click.option(
+    "--os-variant",
+    envvar="OS_VARIANT",
+    required=True,
+    help="Operating system variant",
+)
+@click.option(
+    "--poetry-version",
+    envvar="POETRY_VERSION",
+    required=True,
+    help="Poetry version",
+)
+@click.option(
+    "--registry", envvar="REGISTRY", default="docker.io", help="Docker registry"
+)
 @click.option(
     "--use-local-cache-storage-backend",
     envvar="USE_LOCAL_CACHE_STORAGE_BACKEND",
@@ -30,25 +50,23 @@ def main(
     docker_hub_username: str,
     docker_hub_password: str,
     version_tag: str,
+    poetry_version: str,
+    python_version: str,
+    os_variant: str,
     registry: str,
     use_local_cache_storage_backend: bool,
 ) -> None:
     context: Path = get_context()
-    bake_file: Path = get_docker_bake_file()
-    variables: dict = {
-        "CONTEXT": str(context),
-        "IMAGE_VERSION": version_tag,
-    }
 
-    bake_file_overrides: dict = {}
+    tag: str = f"{registry}/pfeiffermax/python-poetry:{version_tag}-poetry{poetry_version}-python{python_version}-{os_variant}"
+
+    platforms: list[str] = ["linux/amd64", "linux/arm64/v8"]
+    cache_to: str = "type=gha,mode=max"
+    cache_from: str = "type=gha"
+
     if use_local_cache_storage_backend:
-        bake_file_overrides = {
-            "*.cache-to": "type=local,mode=max,dest=/tmp",
-            "*.cache-from": "type=local,src=/tmp",
-        }
-
-    if registry:
-        variables["REGISTRY"] = registry
+        cache_to = "type=local,mode=max,dest=/tmp"
+        cache_from = "type=local,src=/tmp"
 
     docker_client: DockerClient = DockerClient()
     builder: Builder = docker_client.buildx.create(
@@ -60,15 +78,21 @@ def main(
         username=docker_hub_username,
         password=docker_hub_password,
     )
-    build_config: dict = docker_client.buildx.bake(
-        targets=["python-poetry"],
+
+    docker_client.buildx.build(
+        context_path=context,
+        target="production-image",
+        build_args={
+            "POETRY_VERSION": poetry_version,
+            "OFFICIAL_PYTHON_IMAGE": f"python:{python_version}-{os_variant}",
+        },
+        tags=tag,
+        platforms=platforms,
         builder=builder,
-        files=[bake_file],
-        variables=variables,
-        set=bake_file_overrides,
+        cache_to=cache_to,
+        cache_from=cache_from,
         push=True,
     )
-    print(build_config)
 
     # Cleanup
     docker_client.buildx.stop(builder)

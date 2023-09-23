@@ -9,7 +9,6 @@ from tests.constants import (
     VERSION,
 )
 from tests.registry_container import DockerRegistryContainer
-from tests.utils import extract_image_references_from_build_config
 from os import getenv
 
 
@@ -57,12 +56,12 @@ def image_reference(
     docker_client.buildx.build(
         context_path=CONTEXT,
         target="production-image",
-        tags=tag,
-        platforms=platforms,
         build_args={
             "POETRY_VERSION": poetry_version,
             "OFFICIAL_PYTHON_IMAGE": f"python:{python_version}-{os_variant}",
         },
+        tags=tag,
+        platforms=platforms,
         builder=pow_buildx_builder,
         cache_to=cache_to,
         cache_from=cache_from,

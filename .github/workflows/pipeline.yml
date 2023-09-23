@@ -40,7 +40,7 @@ jobs:
       matrix:
         python_version: ["3.9.18", "3.10.13", "3.11.5"]
         os_variant: ["bookworm", "slim-bookworm"]
-        poetry_version: ["1.4.2", "1.5.1", "1.6.1"]    
+        poetry_version: ["1.4.2", "1.5.1", "1.6.1"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -65,7 +65,7 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
           poetry install --no-interaction --no-root
-      - name: Run all tests with pytest
+      - name: Run tests for image builds with pytest
         env:
           PYTHON_VERSION: ${{ matrix.python_version }}
           OS_VARIANT: ${{ matrix.os_variant }}
@@ -82,6 +82,11 @@ jobs:
   run-publish-image-tests:
     needs: code-quality
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python_version: ["3.11.5"]
+        os_variant: ["slim-bookworm"]
+        poetry_version: ["1.6.1"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -94,7 +99,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.4.1
+          version: 1.6.1
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -106,7 +111,11 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
           poetry install --no-interaction --no-root
-      - name: Run all tests with pytest
+      - name: Run tests for image publishing with pytest
+        env:
+          PYTHON_VERSION: ${{ matrix.python_version }}
+          OS_VARIANT: ${{ matrix.os_variant }}
+          POETRY_VERSION: ${{ matrix.poetry_version }}
         run: |
           source .venv/bin/activate
           pytest tests/publish_image --cov
