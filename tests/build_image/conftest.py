@@ -1,6 +1,7 @@
 from time import sleep
 import pytest
 from python_on_whales import Builder, DockerClient
+from build.utils import get_image_reference
 
 from tests.constants import (
     CONTEXT,
@@ -43,7 +44,9 @@ def image_reference(
     os_variant: str = getenv("OS_VARIANT")
     poetry_version: str = getenv("POETRY_VERSION")
 
-    tag: str = f"{registry}/pfeiffermax/python-poetry:{image_version}-poetry{poetry_version}-python{python_version}-{os_variant}"
+    image_reference: str = get_image_reference(
+        registry, image_version, poetry_version, python_version, os_variant
+    )
     cache_scope: str = (
         f"{image_version}-{poetry_version}-{python_version}-{os_variant}"
     )
@@ -63,11 +66,11 @@ def image_reference(
             "POETRY_VERSION": poetry_version,
             "OFFICIAL_PYTHON_IMAGE": f"python:{python_version}-{os_variant}",
         },
-        tags=tag,
+        tags=image_reference,
         platforms=platforms,
         builder=pow_buildx_builder,
         cache_to=cache_to,
         cache_from=cache_from,
         push=True,
     )
-    yield tag
+    yield image_reference
