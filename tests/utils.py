@@ -1,8 +1,8 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 from docker_image import reference
 from python_on_whales import DockerClient
-from pathlib import Path
 
 
 @dataclass

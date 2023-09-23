@@ -1,6 +1,7 @@
+from os import getenv
+
 import pytest
 from click.testing import CliRunner
-from os import getenv
 
 
 @pytest.fixture(scope="package")

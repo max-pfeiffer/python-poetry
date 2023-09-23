@@ -1,15 +1,12 @@
+from os import getenv
 from time import sleep
+
 import pytest
 from python_on_whales import Builder, DockerClient
-from build.utils import get_image_reference
 
-from tests.constants import (
-    CONTEXT,
-    REGISTRY_PASSWORD,
-    REGISTRY_USERNAME,
-)
+from build.utils import get_image_reference
+from tests.constants import CONTEXT, REGISTRY_PASSWORD, REGISTRY_USERNAME
 from tests.registry_container import DockerRegistryContainer
-from os import getenv
 
 
 @pytest.fixture(scope="package")
