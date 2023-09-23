@@ -15,7 +15,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.4.1
+          version: 1.6.1
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -36,6 +36,11 @@ jobs:
   run-build-image-tests:
     needs: code-quality
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python_version: ["3.9.18", "3.10.13", "3.11.5"]
+        os_variant: ["bookworm", "slim-bookworm"]
+        poetry_version: ["1.4.2", "1.5.1", "1.6.1"]    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -48,7 +53,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.4.1
+          version: 1.6.1
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -61,6 +66,10 @@ jobs:
         run: |
           poetry install --no-interaction --no-root
       - name: Run all tests with pytest
+        env:
+          PYTHON_VERSION: ${{ matrix.python_version }}
+          OS_VARIANT: ${{ matrix.os_variant }}
+          POETRY_VERSION: ${{ matrix.poetry_version }}
         run: |
           source .venv/bin/activate
           pytest tests/build_image --cov
@@ -127,7 +136,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.4.1
+          version: 1.6.1
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
