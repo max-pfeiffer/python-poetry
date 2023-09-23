@@ -37,6 +37,7 @@ jobs:
     needs: code-quality
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         python_version: ["3.9.18", "3.10.13", "3.11.5"]
         os_variant: ["bookworm", "slim-bookworm"]
@@ -83,6 +84,7 @@ jobs:
     needs: code-quality
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         python_version: ["3.11.5"]
         os_variant: ["slim-bookworm"]

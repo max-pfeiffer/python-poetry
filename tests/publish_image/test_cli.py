@@ -2,11 +2,12 @@ from click.testing import CliRunner, Result
 from python_on_whales import DockerException
 
 from build.publish import main
-from tests.constants import REGISTRY_PASSWORD, REGISTRY_USERNAME, VERSION
+from tests.constants import REGISTRY_PASSWORD, REGISTRY_USERNAME
 from tests.registry_container import DockerRegistryContainer
 
 
 def test_registry_with_credentials(
+    image_version: str,
     cli_runner: CliRunner,
     python_version: str,
     os_variant: str,
@@ -23,7 +24,7 @@ def test_registry_with_credentials(
                 "--docker-hub-password",
                 REGISTRY_PASSWORD,
                 "--version-tag",
-                VERSION,
+                image_version,
                 "--python-version",
                 python_version,
                 "--os-variant",
@@ -38,6 +39,7 @@ def test_registry_with_credentials(
 
 
 def test_registry_with_wrong_credentials(
+    image_version: str,
     cli_runner: CliRunner,
     python_version: str,
     os_variant: str,
@@ -54,7 +56,7 @@ def test_registry_with_wrong_credentials(
                 "--docker-hub-password",
                 "boom",
                 "--version-tag",
-                VERSION,
+                image_version,
                 "--python-version",
                 python_version,
                 "--os-variant",

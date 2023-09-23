@@ -6,7 +6,6 @@ from tests.constants import (
     CONTEXT,
     REGISTRY_PASSWORD,
     REGISTRY_USERNAME,
-    VERSION,
 )
 from tests.registry_container import DockerRegistryContainer
 from os import getenv
@@ -30,6 +29,7 @@ def registry_container() -> DockerRegistryContainer:
 def image_reference(
     docker_client: DockerClient,
     pow_buildx_builder: Builder,
+    image_version: str,
     registry_container: DockerRegistryContainer,
 ):
     docker_client.login(
@@ -43,15 +43,18 @@ def image_reference(
     os_variant: str = getenv("OS_VARIANT")
     poetry_version: str = getenv("POETRY_VERSION")
 
-    tag: str = f"{registry}/pfeiffermax/python-poetry:{VERSION}-poetry{poetry_version}-python{python_version}-{os_variant}"
+    tag: str = f"{registry}/pfeiffermax/python-poetry:{image_version}-poetry{poetry_version}-python{python_version}-{os_variant}"
+    cache_scope: str = (
+        f"{image_version}-{poetry_version}-{python_version}-{os_variant}"
+    )
 
     platforms: list[str] = ["linux/amd64", "linux/arm64/v8"]
-    cache_to: str = "type=gha,mode=max"
-    cache_from: str = "type=gha"
+    cache_to: str = f"type=gha,mode=max,scope=$GITHUB_REF_NAME-{cache_scope}"
+    cache_from: str = f"type=gha,scope=$GITHUB_REF_NAME-{cache_scope}"
 
     if getenv("USE_LOCAL_CACHE_STORAGE_BACKEND"):
-        cache_to = "type=local,mode=max,dest=/tmp"
-        cache_from = "type=local,src=/tmp"
+        cache_to = f"type=local,mode=max,dest=/tmp,scope={cache_scope}"
+        cache_from = f"type=local,src=/tmp,scope={cache_scope}"
 
     docker_client.buildx.build(
         context_path=CONTEXT,
