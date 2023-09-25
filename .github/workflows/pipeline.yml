@@ -86,9 +86,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: ["3.11.5"]
-        os_variant: ["slim-bookworm"]
-        poetry_version: ["1.6.1"]
+        python_version: ["3.9.18", "3.10.13", "3.11.5"]
+        os_variant: ["bookworm", "slim-bookworm"]
+        poetry_version: ["1.4.2", "1.5.1", "1.6.1"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
