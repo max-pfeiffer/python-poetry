@@ -1,7 +1,7 @@
-import pytest
-from python_on_whales import DockerClient, Builder
 from random import randrange
 
+import pytest
+from python_on_whales import Builder, DockerClient
 from semver import VersionInfo
 
 

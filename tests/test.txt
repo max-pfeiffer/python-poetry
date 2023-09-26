@@ -1,2 +1,0 @@
---set *.cache-to=type=gha,mode=max
---set *.cache-to="type=gha,mode=max" --set *.cache-from="type=gha"

@@ -1,6 +1,6 @@
 import click
 
-from build.utils import get_context
+from build.utils import get_context, get_image_reference
 from pathlib import Path
 from python_on_whales import DockerClient, Builder
 
@@ -58,7 +58,9 @@ def main(
 ) -> None:
     context: Path = get_context()
 
-    tag: str = f"{registry}/pfeiffermax/python-poetry:{version_tag}-poetry{poetry_version}-python{python_version}-{os_variant}"
+    image_reference: str = get_image_reference(
+        registry, version_tag, poetry_version, python_version, os_variant
+    )
 
     platforms: list[str] = ["linux/amd64", "linux/arm64/v8"]
     cache_to: str = "type=gha,mode=max"
@@ -86,7 +88,7 @@ def main(
             "POETRY_VERSION": poetry_version,
             "OFFICIAL_PYTHON_IMAGE": f"python:{python_version}-{os_variant}",
         },
-        tags=tag,
+        tags=image_reference,
         platforms=platforms,
         builder=builder,
         cache_to=cache_to,
