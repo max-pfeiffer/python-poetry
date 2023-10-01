@@ -8,7 +8,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "3.9.*"
 click = "8.1.7"
-python-on-whales = "0.64.3"
+python-on-whales = "0.65.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "2.17.5"
