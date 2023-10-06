@@ -144,13 +144,14 @@ jobs:
           pwd
           ls -sal
           echo "$SHELL"
+          bash --version
       - name: Download coverage reports
         uses: actions/download-artifact@v3
       - name: Check file system after upload
         run: |
           pwd
           ls -sal
-          mv **/*.xml .
+          cp -f **/*.xml .
           ls -sal
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
