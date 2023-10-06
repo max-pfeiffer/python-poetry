@@ -78,7 +78,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-image-coverage-report ${{ matrix.python_version }}-${{ matrix.os_variant }}-${{ matrix.poetry_version }}
-          path: /build_image_coverage_report.xml
+          path: build_image_coverage_report.xml
           if-no-files-found: error
           retention-days: 1          
 
@@ -129,7 +129,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: publish-image-coverage-report ${{ matrix.python_version }}-${{ matrix.os_variant }}-${{ matrix.poetry_version }}
-          path: /publish_image_coverage_report.xml
+          path: publish_image_coverage_report.xml
           if-no-files-found: error
           retention-days: 1          
   
