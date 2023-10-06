@@ -123,6 +123,8 @@ jobs:
         run: |
           source .venv/bin/activate
           pytest tests/publish_image --cov --cov-report=xml:publish_image_coverage_report.xml
+          ls -sal
+          pwd
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
         with:
