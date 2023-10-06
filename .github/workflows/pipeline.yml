@@ -139,10 +139,18 @@ jobs:
       - run-publish-image-tests
     runs-on: ubuntu-20.04
     steps:
+      - name: Check file system
+        run: |
+          pwd
+          ls -sal
       - name: Download coverage reports
         uses: actions/download-artifact@v3
         with:
-          path: /
+          name: publish-image-coverage-report
+      - name: Check file system after upload
+        run: |
+          pwd
+          ls -sal
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
