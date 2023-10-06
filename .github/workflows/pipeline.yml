@@ -75,9 +75,9 @@ jobs:
           source .venv/bin/activate
           pytest tests/build_image --cov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v3
         with:
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
 
   run-publish-image-tests:
@@ -122,9 +122,9 @@ jobs:
           source .venv/bin/activate
           pytest tests/publish_image --cov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v3
         with:
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
         
   publish-all-images:
