@@ -1,13 +1,17 @@
+import tarfile
 from pathlib import Path
-from tempfile import NamedTemporaryFile
+from tempfile import TemporaryDirectory
 from typing import Optional
 
 import bcrypt
 from testcontainers.core.container import DockerContainer
+from testcontainers.core.utils import setup_logger
+
+logger = setup_logger(__name__)
 
 
-# https://docs.docker.com/registry/
 class DockerRegistryContainer(DockerContainer):
+    # https://docs.docker.com/registry/
     def __init__(
         self,
         image: str = "registry:latest",
@@ -17,44 +21,59 @@ class DockerRegistryContainer(DockerContainer):
         **kwargs,
     ) -> None:
         super().__init__(image=image, **kwargs)
-        self.port_to_expose = port
+        self.port = port
         self.username: Optional[str] = username
         self.password: Optional[str] = password
-        self.htpasswd_file: Optional[Path] = None
-        self.with_exposed_ports(self.port_to_expose)
+        self.with_exposed_ports(self.port)
 
     def start(self):
-        # Create the password file
         if self.username and self.password:
+            # Create password and password file contents
             hashed_password: str = bcrypt.hashpw(
                 self.password.encode("utf-8"),
                 bcrypt.gensalt(rounds=12, prefix=b"2a"),
             ).decode("utf-8")
             content = f"{self.username}:{hashed_password}"
 
-            with NamedTemporaryFile(delete=False) as file:
-                file.write(content.encode("utf-8"))
-                self.htpasswd_file = Path(file.name)
+            # Write password file to container and start it
+            with TemporaryDirectory() as tmp_dir:
+                tmp_htpasswd_file: Path = Path(tmp_dir) / "credentials.txt"
+                tmp_tarfile: Path = Path(tmp_dir) / "htpasswd.tar"
+                container_path: str = f"/htpasswd/{tmp_htpasswd_file.name}"
 
-                host_dir: str = str(self.htpasswd_file.parent.resolve())
-                tmp_file: str = self.htpasswd_file.name
+                tmp_htpasswd_file.write_text(content)
 
-                self.with_volume_mapping(host_dir, "/htpasswd")
+                with tarfile.open(tmp_tarfile, "w") as htpasswd_tarfile:
+                    htpasswd_tarfile.add(
+                        tmp_htpasswd_file, arcname=container_path
+                    )
+
                 self.with_env("REGISTRY_AUTH_HTPASSWD_REALM", "local-registry")
-                self.with_env(
-                    "REGISTRY_AUTH_HTPASSWD_PATH", f"/htpasswd/{tmp_file}"
+                self.with_env("REGISTRY_AUTH_HTPASSWD_PATH", container_path)
+
+                logger.info("Pulling image %s", self.image)
+                docker_client = self.get_docker_client()
+                self._container = docker_client.client.containers.create(
+                    self.image,
+                    command=self._command,
+                    detach=True,
+                    environment=self.env,
+                    ports=self.ports,
+                    name=self._name,
+                    volumes=self.volumes,
+                    **self._kwargs,
                 )
+                with open(tmp_tarfile, "r") as data_stream:
+                    self._container.put_archive("/", data_stream)
 
-        super().start()
-        return self
-
-    def stop(self, **kwargs):
-        super().stop(**kwargs)
-        # Remove the password file
-        if self.htpasswd_file:
-            self.htpasswd_file.unlink()
+                self._container.start()
+                logger.info("Container started: %s", self._container.short_id)
+                return self
+        else:
+            super().start()
+            return self
 
     def get_registry(self) -> str:
-        host = self.get_container_host_ip()
-        port = self.get_exposed_port(self.port_to_expose)
+        host: str = self.get_container_host_ip()
+        port: str = self.get_exposed_port(self.port)
         return f"{host}:{port}"
