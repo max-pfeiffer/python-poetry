@@ -139,19 +139,13 @@ jobs:
       - run-publish-image-tests
     runs-on: ubuntu-20.04
     steps:
-      - name: Check file system
-        run: |
-          pwd
-          ls -sal
-          echo "$SHELL"
-          bash --version
       - name: Download coverage reports
         uses: actions/download-artifact@v3
       - name: Check file system after upload
         run: |
           pwd
           ls -sal
-          cp -f **/*.xml .
+          find . -name "*.xml" -exec cp {} . \;
           ls -sal
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
