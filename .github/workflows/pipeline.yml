@@ -74,7 +74,7 @@ jobs:
         run: |
           source .venv/bin/activate
           pytest tests/build_image --cov --cov-report=xml:build_image_coverage_report.xml
-      - name: Upload coverage report
+      - name: Upload coverage report to artifactory
         uses: actions/upload-artifact@v3
         with:
           name: build-image-coverage-report-${{ matrix.python_version }}-${{ matrix.os_variant }}-${{ matrix.poetry_version }}
@@ -123,9 +123,7 @@ jobs:
         run: |
           source .venv/bin/activate
           pytest tests/publish_image --cov --cov-report=xml:publish_image_coverage_report.xml
-          ls -sal
-          pwd
-      - name: Upload coverage report
+      - name: Upload coverage report to artifactory
         uses: actions/upload-artifact@v3
         with:
           name: publish-image-coverage-report-${{ matrix.python_version }}-${{ matrix.os_variant }}-${{ matrix.poetry_version }}
@@ -133,20 +131,17 @@ jobs:
           if-no-files-found: error
           retention-days: 1          
   
-  upload-test-coverage-report:
+  upload-test-coverage-reports:
     needs:
       - run-build-image-tests
       - run-publish-image-tests
     runs-on: ubuntu-20.04
     steps:
-      - name: Download coverage reports
+      - name: Download coverage reports from artifactory
         uses: actions/download-artifact@v3
-      - name: Check file system after upload
+      - name: Compile the relevant reports
         run: |
-          pwd
-          ls -sal
           find . -name "*.xml" -exec cp {} . \;
-          ls -sal
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
@@ -157,7 +152,7 @@ jobs:
 
   publish-all-images:
     needs:
-      - upload-test-coverage-report
+      - upload-test-coverage-reports
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-20.04
     strategy:
