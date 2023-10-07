@@ -4,4 +4,6 @@
 .idea
 .vscode
 .pytest_cache
+.python-version
+.coverage
 __pycache__
