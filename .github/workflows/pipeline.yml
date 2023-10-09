@@ -46,7 +46,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Expose GitHub Runtime
-        uses: crazy-max/ghaction-github-runtime@v2          
+        uses: crazy-max/ghaction-github-runtime@v3          
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -95,7 +95,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Expose GitHub Runtime
-        uses: crazy-max/ghaction-github-runtime@v2          
+        uses: crazy-max/ghaction-github-runtime@v3          
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -141,7 +141,11 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Compile the relevant reports
         run: |
+          ls -sal
           find . -name "*.xml" -exec cp {} . \;
+          ls -sal
+          cat build_image_coverage_report.xml
+          cat publish_image_coverage_report.xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
@@ -165,7 +169,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Expose GitHub Runtime
-        uses: crazy-max/ghaction-github-runtime@v2          
+        uses: crazy-max/ghaction-github-runtime@v3          
       - name: Get Git Commit Tag Name
         uses: olegtarasov/get-tag@v2.1
       - name: Setup Python

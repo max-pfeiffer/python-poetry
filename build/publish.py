@@ -1,4 +1,5 @@
 import click
+from build.constants import PLATFORMS
 
 from build.utils import get_context, get_image_reference
 from pathlib import Path
@@ -61,14 +62,14 @@ def main(
     image_reference: str = get_image_reference(
         registry, version_tag, poetry_version, python_version, os_variant
     )
+    cache_scope: str = f"{poetry_version}-{python_version}-{os_variant}"
 
-    platforms: list[str] = ["linux/amd64", "linux/arm64/v8"]
-    cache_to: str = "type=gha,mode=max"
-    cache_from: str = "type=gha"
+    cache_to: str = f"type=gha,mode=max,scope=$GITHUB_REF_NAME-{cache_scope}"
+    cache_from: str = f"type=gha,scope=$GITHUB_REF_NAME-{cache_scope}"
 
     if use_local_cache_storage_backend:
-        cache_to = "type=local,mode=max,dest=/tmp"
-        cache_from = "type=local,src=/tmp"
+        cache_to = f"type=local,mode=max,dest=/tmp,scope={cache_scope}"
+        cache_from = f"type=local,src=/tmp,scope={cache_scope}"
 
     docker_client: DockerClient = DockerClient()
     builder: Builder = docker_client.buildx.create(
@@ -89,7 +90,7 @@ def main(
             "OFFICIAL_PYTHON_IMAGE": f"python:{python_version}-{os_variant}",
         },
         tags=image_reference,
-        platforms=platforms,
+        platforms=PLATFORMS,
         builder=builder,
         cache_to=cache_to,
         cache_from=cache_from,
