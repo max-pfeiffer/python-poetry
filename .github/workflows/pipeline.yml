@@ -137,6 +137,8 @@ jobs:
       - run-publish-image-tests
     runs-on: ubuntu-20.04
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
       - name: Download coverage reports from artifactory
         uses: actions/download-artifact@v3
       - name: Compile the relevant reports
