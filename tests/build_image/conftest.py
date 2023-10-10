@@ -37,20 +37,22 @@ def image_reference(
         password=REGISTRY_PASSWORD,
     )
     registry: str = registry_container.get_registry()
-
     python_version: str = getenv("PYTHON_VERSION")
     os_variant: str = getenv("OS_VARIANT")
     poetry_version: str = getenv("POETRY_VERSION")
+    github_ref_name: str = getenv("GITHUB_REF_NAME")
 
     image_reference: str = get_image_reference(
         registry, image_version, poetry_version, python_version, os_variant
     )
     cache_scope: str = f"{poetry_version}-{python_version}-{os_variant}"
 
-    cache_to: str = f"type=gha,mode=max,scope=$GITHUB_REF_NAME-{cache_scope}"
-    cache_from: str = f"type=gha,scope=$GITHUB_REF_NAME-{cache_scope}"
-
-    if getenv("USE_LOCAL_CACHE_STORAGE_BACKEND"):
+    if github_ref_name:
+        cache_to: str = (
+            f"type=gha,mode=max,scope={github_ref_name}-{cache_scope}"
+        )
+        cache_from: str = f"type=gha,scope={github_ref_name}-{cache_scope}"
+    else:
         cache_to = f"type=local,mode=max,dest=/tmp,scope={cache_scope}"
         cache_from = f"type=local,src=/tmp,scope={cache_scope}"
 

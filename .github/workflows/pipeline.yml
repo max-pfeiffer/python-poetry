@@ -143,11 +143,7 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Compile the relevant reports
         run: |
-          ls -sal
           find . -name "*.xml" -exec cp {} . \;
-          ls -sal
-          cat build_image_coverage_report.xml
-          cat publish_image_coverage_report.xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:

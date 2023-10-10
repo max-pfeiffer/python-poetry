@@ -4,6 +4,7 @@ from build.constants import PLATFORMS
 from build.utils import get_context, get_image_reference
 from pathlib import Path
 from python_on_whales import DockerClient, Builder
+from os import getenv
 
 
 @click.command()
@@ -41,12 +42,6 @@ from python_on_whales import DockerClient, Builder
 @click.option(
     "--registry", envvar="REGISTRY", default="docker.io", help="Docker registry"
 )
-@click.option(
-    "--use-local-cache-storage-backend",
-    envvar="USE_LOCAL_CACHE_STORAGE_BACKEND",
-    is_flag=True,
-    help="Use local cache storage backend for docker builds",
-)
 def main(
     docker_hub_username: str,
     docker_hub_password: str,
@@ -55,19 +50,20 @@ def main(
     python_version: str,
     os_variant: str,
     registry: str,
-    use_local_cache_storage_backend: bool,
 ) -> None:
+    github_ref_name: str = getenv("GITHUB_REF_NAME")
     context: Path = get_context()
-
     image_reference: str = get_image_reference(
         registry, version_tag, poetry_version, python_version, os_variant
     )
     cache_scope: str = f"{poetry_version}-{python_version}-{os_variant}"
 
-    cache_to: str = f"type=gha,mode=max,scope=$GITHUB_REF_NAME-{cache_scope}"
-    cache_from: str = f"type=gha,scope=$GITHUB_REF_NAME-{cache_scope}"
-
-    if use_local_cache_storage_backend:
+    if github_ref_name:
+        cache_to: str = (
+            f"type=gha,mode=max,scope={github_ref_name}-{cache_scope}"
+        )
+        cache_from: str = f"type=gha,scope={github_ref_name}-{cache_scope}"
+    else:
         cache_to = f"type=local,mode=max,dest=/tmp,scope={cache_scope}"
         cache_from = f"type=local,src=/tmp,scope={cache_scope}"
 
