@@ -4,6 +4,7 @@ from time import sleep
 import pytest
 from python_on_whales import Builder, DockerClient
 
+from build.constants import PLATFORMS
 from build.utils import get_image_reference
 from tests.constants import CONTEXT, REGISTRY_PASSWORD, REGISTRY_USERNAME
 from tests.registry_container import DockerRegistryContainer
@@ -44,11 +45,8 @@ def image_reference(
     image_reference: str = get_image_reference(
         registry, image_version, poetry_version, python_version, os_variant
     )
-    cache_scope: str = (
-        f"{image_version}-{poetry_version}-{python_version}-{os_variant}"
-    )
+    cache_scope: str = f"{poetry_version}-{python_version}-{os_variant}"
 
-    platforms: list[str] = ["linux/amd64", "linux/arm64/v8"]
     cache_to: str = f"type=gha,mode=max,scope=$GITHUB_REF_NAME-{cache_scope}"
     cache_from: str = f"type=gha,scope=$GITHUB_REF_NAME-{cache_scope}"
 
@@ -64,7 +62,7 @@ def image_reference(
             "OFFICIAL_PYTHON_IMAGE": f"python:{python_version}-{os_variant}",
         },
         tags=image_reference,
-        platforms=platforms,
+        platforms=PLATFORMS,
         builder=pow_buildx_builder,
         cache_to=cache_to,
         cache_from=cache_from,
