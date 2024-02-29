@@ -1,3 +1,5 @@
+"""Tests for building and publishing the image using CLI and environment variables."""
+
 from click.testing import CliRunner, Result
 from python_on_whales import DockerException
 
@@ -13,6 +15,17 @@ def test_registry_with_credentials(
     os_variant: str,
     poetry_version: str,
 ):
+    """Test building and publishing the image to a Docker registry.
+
+    The registry requires authentication. It requires authentication for this case.
+
+    :param image_version:
+    :param cli_runner:
+    :param python_version:
+    :param os_variant:
+    :param poetry_version:
+    :return:
+    """
     with DockerRegistryContainer(
         username=REGISTRY_USERNAME, password=REGISTRY_PASSWORD
     ).with_bind_ports(5000, 5000) as docker_registry:
@@ -38,6 +51,17 @@ def test_registry_with_wrong_credentials(
     os_variant: str,
     poetry_version: str,
 ):
+    """Test building and publishing the image to a Docker registry.
+
+    The registry requires authentication. The credentials are invalid in this case.
+
+    :param image_version:
+    :param cli_runner:
+    :param python_version:
+    :param os_variant:
+    :param poetry_version:
+    :return:
+    """
     with DockerRegistryContainer(
         username=REGISTRY_USERNAME, password=REGISTRY_PASSWORD
     ).with_bind_ports(5000, 5000) as docker_registry:

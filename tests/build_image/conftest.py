@@ -1,3 +1,5 @@
+"""Test fixtures for image build tests."""
+
 from os import getenv
 from time import sleep
 
@@ -12,6 +14,10 @@ from tests.registry_container import DockerRegistryContainer
 
 @pytest.fixture(scope="package")
 def registry_container() -> DockerRegistryContainer:
+    """Provide a Registry container locally for publishing the image.
+
+    :return:
+    """
     registry_container = DockerRegistryContainer(
         username=REGISTRY_USERNAME, password=REGISTRY_PASSWORD
     ).with_bind_ports(5000, 5000)
@@ -30,7 +36,15 @@ def image_reference(
     pow_buildx_builder: Builder,
     image_version: str,
     registry_container: DockerRegistryContainer,
-):
+) -> str:
+    """Build the image and return the image reference.
+
+    :param docker_client:
+    :param pow_buildx_builder:
+    :param image_version:
+    :param registry_container:
+    :return:
+    """
     docker_client.login(
         server=registry_container.get_registry(),
         username=REGISTRY_USERNAME,
@@ -48,9 +62,7 @@ def image_reference(
     cache_scope: str = f"{poetry_version}-{python_version}-{os_variant}"
 
     if github_ref_name:
-        cache_to: str = (
-            f"type=gha,mode=max,scope={github_ref_name}-{cache_scope}"
-        )
+        cache_to: str = f"type=gha,mode=max,scope={github_ref_name}-{cache_scope}"
         cache_from: str = f"type=gha,scope={github_ref_name}-{cache_scope}"
     else:
         cache_to = f"type=local,mode=max,dest=/tmp,scope={cache_scope}"
