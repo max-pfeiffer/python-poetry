@@ -15,7 +15,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.6.1
+          version: 1.7.1
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -27,11 +27,10 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
           poetry install --no-interaction --no-root
-      - name: Run pylint and black
+      - name: Run ruff
         run: |
           source .venv/bin/activate
-          pylint build tests
-          black --check .
+          ruff check --config pyproject.toml .
 
   run-build-image-tests:
     needs: code-quality
@@ -54,7 +53,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.6.1
+          version: 1.7.1
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -103,7 +102,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.6.1
+          version: 1.7.1
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -177,7 +176,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.6.1
+          version: 1.7.1
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
