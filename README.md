@@ -14,7 +14,7 @@ management.
 Basis of this image are the [official Python](https://hub.docker.com/_/python)
 and [Debian images](https://hub.docker.com/_/debian).
 
-This multiarch image supports AMD64 and ARM64 architectures.
+This multi arch image supports AMD64 and ARM64 architectures.
 
 **Docker Hub:** [pfeiffermax/python-poetry](https://hub.docker.com/r/pfeiffermax/python-poetry)
 
@@ -22,9 +22,9 @@ This multiarch image supports AMD64 and ARM64 architectures.
 
 ## Docker Image Features
 **Poetry versions:**
-* v1.5.1
 * v1.6.1
 * v1.7.1
+* v1.8.1
 
 **Python versions:**
 * v3.10

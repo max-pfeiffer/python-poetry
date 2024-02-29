@@ -39,7 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: ["3.10.13", "3.11.6", "3.12.0"]
+        python_version: ["3.10.13", "3.11.8", "3.12.2"]
         os_variant: ["bookworm", "slim-bookworm"]
         poetry_version: ["1.5.1", "1.6.1", "1.7.1"]
     steps:
@@ -88,7 +88,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: ["3.10.13", "3.11.6", "3.12.0"]
+        python_version: ["3.10.13", "3.11.8", "3.12.2"]
         os_variant: ["bookworm", "slim-bookworm"]
         poetry_version: ["1.5.1", "1.6.1", "1.7.1"]
     steps:
@@ -160,7 +160,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: ["3.10.13", "3.11.6", "3.12.0"]
+        python_version: ["3.10.13", "3.11.8", "3.12.2"]
         os_variant: ["bookworm", "slim-bookworm"]
         poetry_version: ["1.5.1", "1.6.1", "1.7.1"]
     steps:
