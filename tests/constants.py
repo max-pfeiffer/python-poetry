@@ -1,3 +1,5 @@
+"""Constants for tests."""
+
 from pathlib import Path
 
 from build.utils import get_context

@@ -1,3 +1,5 @@
+"""DockerContainer subclasses."""
+
 import time
 from io import BytesIO
 from tarfile import TarFile, TarInfo
@@ -8,6 +10,8 @@ from testcontainers.core.container import DockerContainer
 
 
 class DockerRegistryContainer(DockerContainer):
+    """Test container for Docker Registry."""
+
     # https://docs.docker.com/registry/
     credentials_path: str = "/htpasswd/credentials.txt"
 
@@ -15,10 +19,18 @@ class DockerRegistryContainer(DockerContainer):
         self,
         image: str = "registry:latest",
         port: int = 5000,
-        username: str = None,
-        password: str = None,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
         **kwargs,
     ) -> None:
+        """Class initializer.
+
+        :param image:
+        :param port:
+        :param username:
+        :param password:
+        :param kwargs:
+        """
         super().__init__(image=image, **kwargs)
         self.port: int = port
         self.username: Optional[str] = username
@@ -26,12 +38,16 @@ class DockerRegistryContainer(DockerContainer):
         self.with_exposed_ports(self.port)
 
     def _copy_credentials(self):
+        """Copy credentials to container.
+
+        :return:
+        """
         # Create credentials and write them to the container
         hashed_password: str = bcrypt.hashpw(
             self.password.encode("utf-8"),
             bcrypt.gensalt(rounds=12, prefix=b"2a"),
         ).decode("utf-8")
-        content = f"{self.username}:{hashed_password}".encode("utf-8")
+        content = f"{self.username}:{hashed_password}".encode()
 
         with BytesIO() as tar_archive_object, TarFile(
             fileobj=tar_archive_object, mode="w"
@@ -45,6 +61,10 @@ class DockerRegistryContainer(DockerContainer):
             self.get_wrapped_container().put_archive("/", tar_archive_object)
 
     def start(self):
+        """Start the container.
+
+        :return:
+        """
         if self.username and self.password:
             self.with_env("REGISTRY_AUTH_HTPASSWD_REALM", "local-registry")
             self.with_env("REGISTRY_AUTH_HTPASSWD_PATH", self.credentials_path)
@@ -56,6 +76,10 @@ class DockerRegistryContainer(DockerContainer):
             return self
 
     def get_registry(self) -> str:
+        """Return the registry host with port.
+
+        :return:
+        """
         host: str = self.get_container_host_ip()
         port: str = self.get_exposed_port(self.port)
         return f"{host}:{port}"
