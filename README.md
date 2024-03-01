@@ -21,9 +21,9 @@ This multi arch image supports AMD64 and ARM64 architectures.
 
 ## Docker Image Features
 **Poetry versions:**
-* v1.5.1
 * v1.6.1
 * v1.7.1
+* v1.8.1
 
 **Python versions:**
 * v3.10
