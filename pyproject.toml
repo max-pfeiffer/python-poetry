@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "python-poetry"
-version = "1.9.0"
+version = "1.10.0"
 description = "A Python Docker image with Poetry installed and ready to use."
 authors = ["Max Pfeiffer <max@maxpfeiffer.ch>"]
 license = "MIT"
@@ -21,7 +21,6 @@ pytest-dotenv = "0.5.2"
 pre-commit = "3.6.2"
 semver = "3.0.2"
 testcontainers = "4.1.1"
-ruff = "0.3.4"
 
 [tool.ruff]
 exclude = [".venv"]
