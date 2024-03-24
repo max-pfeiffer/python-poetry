@@ -29,8 +29,7 @@ jobs:
           poetry install --no-interaction --no-root
       - name: Run ruff
         run: |
-          source .venv/bin/activate
-          ruff check --config pyproject.toml .
+          poetry run pre-commit run -a 
 
   run-build-image-tests:
     needs: code-quality
@@ -38,9 +37,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: ["3.10.13", "3.11.8", "3.12.2"]
+        python_version: ["3.10.14", "3.11.8", "3.12.2"]
         os_variant: ["bookworm", "slim-bookworm"]
-        poetry_version: ["1.6.1", "1.7.1", "1.8.1"]
+        poetry_version: ["1.6.1", "1.7.1", "1.8.2"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -71,8 +70,7 @@ jobs:
           OS_VARIANT: ${{ matrix.os_variant }}
           POETRY_VERSION: ${{ matrix.poetry_version }}
         run: |
-          source .venv/bin/activate
-          pytest tests/build_image --cov --cov-report=xml:build_image_coverage_report.xml
+          poetry run pytest tests/build_image --cov --cov-report=xml:build_image_coverage_report.xml
       - name: Upload coverage report to artifactory
         uses: actions/upload-artifact@v3
         with:
@@ -87,9 +85,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: ["3.10.13", "3.11.8", "3.12.2"]
+        python_version: ["3.10.14", "3.11.8", "3.12.2"]
         os_variant: ["bookworm", "slim-bookworm"]
-        poetry_version: ["1.6.1", "1.7.1", "1.8.1"]
+        poetry_version: ["1.6.1", "1.7.1", "1.8.2"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -159,9 +157,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: ["3.10.13", "3.11.8", "3.12.2"]
+        python_version: ["3.10.14", "3.11.8", "3.12.2"]
         os_variant: ["bookworm", "slim-bookworm"]
-        poetry_version: ["1.6.1", "1.7.1", "1.8.1"]
+        poetry_version: ["1.6.1", "1.7.1", "1.8.2"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
