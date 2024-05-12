@@ -1,7 +1,6 @@
 """Test fixtures for image build tests."""
 
 from os import getenv
-from time import sleep
 
 import pytest
 from python_on_whales import Builder, DockerClient
@@ -18,16 +17,10 @@ def registry_container() -> DockerRegistryContainer:
 
     :return:
     """
-    registry_container = DockerRegistryContainer(
+    with DockerRegistryContainer(
         username=REGISTRY_USERNAME, password=REGISTRY_PASSWORD
-    ).with_bind_ports(5000, 5000)
-    registry_container.start()
-
-    # Wait for the registry container to come up
-    sleep(3.0)
-
-    yield registry_container
-    registry_container.stop()
+    ).with_bind_ports(5000, 5000) as registry_container:
+        yield registry_container
 
 
 @pytest.fixture(scope="package")

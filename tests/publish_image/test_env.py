@@ -10,6 +10,7 @@ from tests.constants import REGISTRY_PASSWORD, REGISTRY_USERNAME
 
 def test_registry_with_credentials(
     image_version: str,
+    publish_registry_container: DockerRegistryContainer,
     cli_runner: CliRunner,
     python_version: str,
     os_variant: str,
@@ -26,26 +27,24 @@ def test_registry_with_credentials(
     :param poetry_version:
     :return:
     """
-    with DockerRegistryContainer(
-        username=REGISTRY_USERNAME, password=REGISTRY_PASSWORD
-    ).with_bind_ports(5000, 5000) as docker_registry:
-        result: Result = cli_runner.invoke(
-            main,
-            env={
-                "DOCKER_HUB_USERNAME": REGISTRY_USERNAME,
-                "DOCKER_HUB_PASSWORD": REGISTRY_PASSWORD,
-                "GIT_TAG_NAME": image_version,
-                "PYTHON_VERSION": python_version,
-                "OS_VARIANT": os_variant,
-                "POETRY_VERSION": poetry_version,
-                "REGISTRY": docker_registry.get_registry(),
-            },
-        )
-        assert result.exit_code == 0
+    result: Result = cli_runner.invoke(
+        main,
+        env={
+            "DOCKER_HUB_USERNAME": REGISTRY_USERNAME,
+            "DOCKER_HUB_PASSWORD": REGISTRY_PASSWORD,
+            "GIT_TAG_NAME": image_version,
+            "PYTHON_VERSION": python_version,
+            "OS_VARIANT": os_variant,
+            "POETRY_VERSION": poetry_version,
+            "REGISTRY": publish_registry_container.get_registry(),
+        },
+    )
+    assert result.exit_code == 0
 
 
 def test_registry_with_wrong_credentials(
     image_version: str,
+    publish_registry_container: DockerRegistryContainer,
     cli_runner: CliRunner,
     python_version: str,
     os_variant: str,
@@ -62,20 +61,17 @@ def test_registry_with_wrong_credentials(
     :param poetry_version:
     :return:
     """
-    with DockerRegistryContainer(
-        username=REGISTRY_USERNAME, password=REGISTRY_PASSWORD
-    ).with_bind_ports(5000, 5000) as docker_registry:
-        result: Result = cli_runner.invoke(
-            main,
-            env={
-                "DOCKER_HUB_USERNAME": "boom",
-                "DOCKER_HUB_PASSWORD": "bang",
-                "GIT_TAG_NAME": image_version,
-                "PYTHON_VERSION": python_version,
-                "OS_VARIANT": os_variant,
-                "POETRY_VERSION": poetry_version,
-                "REGISTRY": docker_registry.get_registry(),
-            },
-        )
-        assert result.exit_code == 1
-        assert isinstance(result.exception, DockerException)
+    result: Result = cli_runner.invoke(
+        main,
+        env={
+            "DOCKER_HUB_USERNAME": "boom",
+            "DOCKER_HUB_PASSWORD": "bang",
+            "GIT_TAG_NAME": image_version,
+            "PYTHON_VERSION": python_version,
+            "OS_VARIANT": os_variant,
+            "POETRY_VERSION": poetry_version,
+            "REGISTRY": publish_registry_container.get_registry(),
+        },
+    )
+    assert result.exit_code == 1
+    assert isinstance(result.exception, DockerException)
