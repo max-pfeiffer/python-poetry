@@ -5,11 +5,11 @@ from time import sleep
 
 import pytest
 from python_on_whales import Builder, DockerClient
+from testcontainers.registry import DockerRegistryContainer
 
 from build.constants import PLATFORMS
 from build.utils import get_image_reference
 from tests.constants import CONTEXT, REGISTRY_PASSWORD, REGISTRY_USERNAME
-from tests.registry_container import DockerRegistryContainer
 
 
 @pytest.fixture(scope="package")
