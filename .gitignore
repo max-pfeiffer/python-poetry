@@ -7,3 +7,5 @@
 .python-version
 .coverage
 __pycache__
+build_image_coverage_report.xml
+publish_image_coverage_report.xml
