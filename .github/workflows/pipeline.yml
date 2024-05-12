@@ -15,7 +15,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.7.1
+          version: 1.8.3
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -37,9 +37,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: ["3.10.14", "3.11.8", "3.12.2"]
+        python_version: ["3.10.14", "3.11.9", "3.12.3"]
         os_variant: ["bookworm", "slim-bookworm"]
-        poetry_version: ["1.6.1", "1.7.1", "1.8.2"]
+        poetry_version: ["1.6.1", "1.7.1", "1.8.3"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -52,7 +52,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.7.1
+          version: 1.8.3
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -85,9 +85,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: ["3.10.14", "3.11.8", "3.12.2"]
+        python_version: ["3.10.14", "3.11.9", "3.12.3"]
         os_variant: ["bookworm", "slim-bookworm"]
-        poetry_version: ["1.6.1", "1.7.1", "1.8.2"]
+        poetry_version: ["1.6.1", "1.7.1", "1.8.3"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -100,7 +100,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.7.1
+          version: 1.8.3
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -157,9 +157,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: ["3.10.14", "3.11.8", "3.12.2"]
+        python_version: ["3.10.14", "3.11.9", "3.12.3"]
         os_variant: ["bookworm", "slim-bookworm"]
-        poetry_version: ["1.6.1", "1.7.1", "1.8.2"]
+        poetry_version: ["1.6.1", "1.7.1", "1.8.3"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -174,7 +174,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.7.1
+          version: 1.8.3
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-poetry-dependencies
