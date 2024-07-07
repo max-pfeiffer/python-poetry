@@ -77,8 +77,7 @@ jobs:
           OS_VARIANT: ${{ matrix.os_variant }}
           POETRY_VERSION: ${{ matrix.poetry_version }}
         run: |
-          source .venv/bin/activate
-          pytest tests/publish_image --cov --cov-report=xml:publish_image_coverage_report.xml
+          poetry run pytest tests/publish_image --cov --cov-report=xml:publish_image_coverage_report.xml
       - name: Upload coverage report to artifactory
         uses: actions/upload-artifact@v3
         with:
@@ -101,7 +100,7 @@ jobs:
         run: |
           find . -name "*.xml" -exec cp {} . \;
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: ./build_image_coverage_report.xml,./publish_image_coverage_report.xml
           fail_ci_if_error: true
@@ -138,6 +137,5 @@ jobs:
           PYTHON_VERSION: ${{ matrix.python_version }}
           OS_VARIANT: ${{ matrix.os_variant }}
           POETRY_VERSION: ${{ matrix.poetry_version }}
-        run: |
-          source .venv/bin/activate
-          python -m build.publish
+        run: |          
+          poetry run python -m build.publish
