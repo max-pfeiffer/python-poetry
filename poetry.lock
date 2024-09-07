@@ -319,13 +319,13 @@ websockets = ["websocket-client (>=1.3.0)"]
 
 [[package]]
 name = "docker-image-py"
-version = "0.1.12"
+version = "0.1.13"
 description = "Parse docker image as distribution does."
 optional = false
 python-versions = "*"
 files = [
-    {file = "docker-image-py-0.1.12.tar.gz", hash = "sha256:c0eebb6c25714b2a4f91a1462183e70252fa34fb189496d3c54711a64f12f96e"},
-    {file = "docker_image_py-0.1.12-py2-none-any.whl", hash = "sha256:44e18e8000aaaddbd2e02d40050dca850acd071c4780cbe2b3366cb5dc1a6d62"},
+    {file = "docker_image_py-0.1.13-py3-none-any.whl", hash = "sha256:c217fc72e8cdf2aa2caa718c758cec1ad41c09972ec1c94e85a4bf79a8f81061"},
+    {file = "docker_image_py-0.1.13.tar.gz", hash = "sha256:de2755de0a09c99ae3b4cf42cc470a83b35bfdc4bf8ad66a3d7550d622a8915a"},
 ]
 
 [package.dependencies]
@@ -1213,4 +1213,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "3.11.*"
-content-hash = "bf745ce034f53a6589186824ad307410c7258d25eb4d05e936fd5784ebe14d36"
+content-hash = "83be3bedc7c7b807ed0a89140e4f29b4019980c249c3a9e01ccd8f42aac186a4"
