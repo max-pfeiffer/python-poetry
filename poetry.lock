@@ -721,23 +721,24 @@ cli = ["click (>=5.0)"]
 
 [[package]]
 name = "python-on-whales"
-version = "0.72.0"
+version = "0.73.0"
 description = "A Docker client for Python, designed to be fun and intuitive!"
 optional = false
 python-versions = "<4,>=3.8"
 files = [
-    {file = "python_on_whales-0.72.0-py3-none-any.whl", hash = "sha256:092b440f43a34bbe90536b82a41ae3c199018dfc66d7e0dc52d4d659b82683c2"},
-    {file = "python_on_whales-0.72.0.tar.gz", hash = "sha256:280da91724ae728ac2baf503584938ecfdee2f83bb88e65413eed14b1fe74d41"},
+    {file = "python_on_whales-0.73.0-py3-none-any.whl", hash = "sha256:66f31749c2544a0aacb4e3ba03772c2e9227235ea1aecd58aa7a4cdcf26f559a"},
+    {file = "python_on_whales-0.73.0.tar.gz", hash = "sha256:c76bf3633550e5c948fb4215918364f45efaddb2e09df5ddd169132f7ffdc249"},
 ]
 
 [package.dependencies]
-pydantic = ">=1.9,<2.0.dev0 || >=2.1.dev0,<3"
+pydantic = ">=2.1.dev0,<3"
 requests = "*"
 tqdm = "*"
 typer = ">=0.4.1"
 typing-extensions = "*"
 
 [package.extras]
+dev = ["ruff (==0.5.6)"]
 test = ["pytest"]
 
 [[package]]
@@ -1213,4 +1214,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "3.11.*"
-content-hash = "99f271ca158122569783ff0696544185ca477a6555e9fbe979f671aa356d92ef"
+content-hash = "c9d9a4d99db259bbdf3b84cfebfbc3e375bc89364c3482afefa8e96de1e6edc4"
