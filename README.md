@@ -23,12 +23,12 @@ This multi arch image supports AMD64 and ARM64 architectures.
 **Poetry versions:**
 * v1.6.1
 * v1.7.1
-* v1.8.3
+* v1.8.4
 
 **Python versions:**
-* v3.10
 * v3.11
 * v3.12
+* v3.13
 
 **Operating system:**
 * [Debian Bookworm v12.1](https://www.debian.org/releases/bookworm/)
