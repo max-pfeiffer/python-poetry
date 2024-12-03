@@ -11,7 +11,7 @@ click = "8.1.7"
 python-on-whales = "0.74.0"
 
 [tool.poetry.dev-dependencies]
-bcrypt = "4.2.0"
+bcrypt = "4.2.1"
 coverage = "7.6.8"
 docker-image-py = "0.1.13"
 furl = "2.1.3"
