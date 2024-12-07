@@ -23,7 +23,7 @@ This multi arch image supports AMD64 and ARM64 architectures.
 **Poetry versions:**
 * v1.6.1
 * v1.7.1
-* v1.8.4
+* v1.8.5
 
 **Python versions:**
 * v3.11

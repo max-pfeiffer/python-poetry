@@ -4,11 +4,11 @@ description: Python environment setup
 inputs:
   python-version:
     description: The Python version to install and use
-    default: "3.11"
+    default: "3.13"
     required: false
   poetry-version:
     description: The Poetry version to install and use
-    default: "1.8.3"
+    default: "1.8.5"
     required: false
 
 runs:
