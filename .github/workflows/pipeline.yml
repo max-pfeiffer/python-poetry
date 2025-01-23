@@ -25,7 +25,7 @@ jobs:
       matrix:
         python_version: ["3.11.11", "3.12.8", "3.13.1"]
         os_variant: ["bookworm", "slim-bookworm"]
-        poetry_version: ["1.6.1", "1.7.1", "1.8.5"]
+        poetry_version: ["1.7.1", "1.8.5", "2.0.1"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -59,7 +59,7 @@ jobs:
       matrix:
         python_version: ["3.11.11", "3.12.8", "3.13.1"]
         os_variant: ["bookworm", "slim-bookworm"]
-        poetry_version: ["1.6.1", "1.7.1", "1.8.5"]
+        poetry_version: ["1.7.1", "1.8.5", "2.0.1"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -117,7 +117,7 @@ jobs:
       matrix:
         python_version: ["3.11.11", "3.12.8", "3.13.1"]
         os_variant: ["bookworm", "slim-bookworm"]
-        poetry_version: ["1.6.1", "1.7.1", "1.8.5"]
+        poetry_version: ["1.7.1", "1.8.5", "2.0.1"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
