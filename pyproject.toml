@@ -20,7 +20,7 @@ pytest-cov = "6.0.0"
 pytest-dotenv = "0.5.2"
 pre-commit = "4.2.0"
 semver = "3.0.4"
-testcontainers = "4.9.2"
+testcontainers = "4.10.0"
 
 [tool.ruff]
 exclude = [".venv"]
