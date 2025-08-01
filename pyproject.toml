@@ -8,7 +8,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.11"
 click = "8.1.8"
-python-on-whales = "0.76.1"
+python-on-whales = "0.78.0"
 
 [tool.poetry.group.dev.dependencies]
 bcrypt = "4.3.0"
