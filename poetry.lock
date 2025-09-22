@@ -988,14 +988,14 @@ files = [
 
 [[package]]
 name = "testcontainers"
-version = "4.9.2"
+version = "4.12.0"
 description = "Python library for throwaway instances of anything that can run in a Docker container"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["dev"]
 files = [
-    {file = "testcontainers-4.9.2-py3-none-any.whl", hash = "sha256:36bd2b58d91f2fc7ac4f4a73c6ec00e5e60c259c10f208dbfe3161029889be92"},
-    {file = "testcontainers-4.9.2.tar.gz", hash = "sha256:348c72d369d0bd52b57ab4f07a965ae9562837098c28f0522b969b064b779f10"},
+    {file = "testcontainers-4.12.0-py3-none-any.whl", hash = "sha256:26caef57e642d5e8c5fcc593881cf7df3ab0f0dc9170fad22765b184e226ab15"},
+    {file = "testcontainers-4.12.0.tar.gz", hash = "sha256:13ee89cae995e643f225665aad8b200b25c4f219944a6f9c0b03249ec3f31b8d"},
 ]
 
 [package.dependencies]
@@ -1009,10 +1009,10 @@ wrapt = "*"
 arangodb = ["python-arango (>=7.8,<8.0)"]
 aws = ["boto3", "httpx"]
 azurite = ["azure-storage-blob (>=12.19,<13.0)"]
-chroma = ["chromadb-client"]
+chroma = ["chromadb-client (>=1.0.0,<2.0.0)"]
 clickhouse = ["clickhouse-driver"]
 cosmosdb = ["azure-cosmos"]
-db2 = ["ibm_db_sa", "sqlalchemy"]
+db2 = ["ibm_db_sa ; platform_machine != \"aarch64\" and platform_machine != \"arm64\"", "sqlalchemy"]
 generic = ["httpx", "redis"]
 google = ["google-cloud-datastore (>=2)", "google-cloud-pubsub (>=2)"]
 influxdb = ["influxdb", "influxdb-client"]
@@ -1022,10 +1022,11 @@ localstack = ["boto3"]
 mailpit = ["cryptography"]
 minio = ["minio"]
 mongodb = ["pymongo"]
-mssql = ["pymssql", "sqlalchemy"]
+mssql = ["pymssql ; platform_machine != \"arm64\" or python_version >= \"3.10\"", "sqlalchemy"]
 mysql = ["pymysql[rsa]", "sqlalchemy"]
 nats = ["nats-py"]
 neo4j = ["neo4j"]
+openfga = ["openfga-sdk ; python_version >= \"3.10\""]
 opensearch = ["opensearch-py"]
 oracle = ["oracledb", "sqlalchemy"]
 oracle-free = ["oracledb", "sqlalchemy"]
@@ -1183,4 +1184,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "5f63d4f1ea73e01a1e9b1ed5d98ab1a74c888461eed417230f61d5f36733a1b5"
+content-hash = "58e490eba82caec8bb82bf944d71853548bae4001e76c718134ba3e9b6a0f9cb"
