@@ -1,29 +1,29 @@
 [tool.poetry]
 name = "python-poetry"
-version = "1.15.0"
+version = "1.16.0"
 description = "A Python Docker image with Poetry installed and ready to use."
 authors = ["Max Pfeiffer <max@maxpfeiffer.ch>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-click = "8.1.8"
-python-on-whales = "0.76.1"
+click = "8.3.0"
+python-on-whales = "0.79.0"
 
 [tool.poetry.group.dev.dependencies]
-bcrypt = "4.3.0"
-coverage = "7.6.12"
+bcrypt = "5.0.0"
+coverage = "7.11.3"
 docker-image-py = "0.1.13"
 furl = "2.1.4"
-pytest = "8.3.4"
-pytest-cov = "6.0.0"
+pytest = "9.0.1"
+pytest-cov = "7.0.0"
 pytest-dotenv = "0.5.2"
-pre-commit = "4.2.0"
+pre-commit = "4.4.0"
 semver = "3.0.4"
-testcontainers = "4.12.0"
+testcontainers = "4.13.3"
 
 [tool.ruff]
-exclude = [".venv"]
+src = ["build", "tests"]
 
 [tool.ruff.lint]
 select = [
@@ -41,7 +41,7 @@ select = [
 convention = "pep257"
 
 # https://docs.pytest.org/en/latest/reference/customize.html
-[tool.pytest.ini_options]
+[tool.pytest]
 testpaths = [
     "tests",
 ]
