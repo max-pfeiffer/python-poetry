@@ -1,10 +1,10 @@
 """Tests for building and publishing the image using CLI and environment variables."""
 
+from build.publish import main
 from click.testing import CliRunner, Result
 from python_on_whales import DockerException
 from testcontainers.registry import DockerRegistryContainer
 
-from build.publish import main
 from tests.constants import REGISTRY_PASSWORD, REGISTRY_USERNAME
 
 

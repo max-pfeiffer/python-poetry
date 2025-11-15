@@ -1,8 +1,7 @@
 """Tests for invalid CLI calls."""
 
-from click.testing import CliRunner, Result
-
 from build.publish import main
+from click.testing import CliRunner, Result
 
 
 def test_missing_options_and_env(cli_runner: CliRunner):
