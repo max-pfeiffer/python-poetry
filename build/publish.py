@@ -17,8 +17,8 @@ from build.utils import get_context, get_image_reference
     help="Docker Hub username",
 )
 @click.option(
-    "--docker-hub-password",
-    envvar="DOCKER_HUB_PASSWORD",
+    "--docker-hub-token",
+    envvar="DOCKER_HUB_TOKEN",
     help="Docker Hub password",
 )
 @click.option("--version-tag", envvar="GIT_TAG_NAME", required=True, help="Version tag")
@@ -45,7 +45,7 @@ from build.utils import get_context, get_image_reference
 )
 def main(
     docker_hub_username: str,
-    docker_hub_password: str,
+    docker_hub_token: str,
     version_tag: str,
     poetry_version: str,
     python_version: str,
@@ -55,7 +55,7 @@ def main(
     """Build and publish image to Docker Hub.
 
     :param docker_hub_username:
-    :param docker_hub_password:
+    :param docker_hub_token:
     :param version_tag:
     :param poetry_version:
     :param python_version:
@@ -85,7 +85,7 @@ def main(
     docker_client.login(
         server=registry,
         username=docker_hub_username,
-        password=docker_hub_password,
+        password=docker_hub_token,
     )
 
     docker_client.buildx.build(

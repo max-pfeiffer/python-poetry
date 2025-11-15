@@ -31,7 +31,7 @@ def test_registry_with_credentials(
         main,
         env={
             "DOCKER_HUB_USERNAME": REGISTRY_USERNAME,
-            "DOCKER_HUB_PASSWORD": REGISTRY_PASSWORD,
+            "DOCKER_HUB_TOKEN": REGISTRY_PASSWORD,
             "GIT_TAG_NAME": image_version,
             "PYTHON_VERSION": python_version,
             "OS_VARIANT": os_variant,
@@ -65,7 +65,7 @@ def test_registry_with_wrong_credentials(
         main,
         env={
             "DOCKER_HUB_USERNAME": "boom",
-            "DOCKER_HUB_PASSWORD": "bang",
+            "DOCKER_HUB_TOKEN": "bang",
             "GIT_TAG_NAME": image_version,
             "PYTHON_VERSION": python_version,
             "OS_VARIANT": os_variant,

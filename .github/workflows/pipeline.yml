@@ -133,7 +133,7 @@ jobs:
       - name: Publish Images to Docker Hub
         env:
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-          DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
           PYTHON_VERSION: ${{ matrix.python_version }}
           OS_VARIANT: ${{ matrix.os_variant }}
           POETRY_VERSION: ${{ matrix.poetry_version }}
