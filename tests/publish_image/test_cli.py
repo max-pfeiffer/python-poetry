@@ -32,7 +32,7 @@ def test_registry_with_credentials(
         args=[
             "--docker-hub-username",
             REGISTRY_USERNAME,
-            "--docker-hub-password",
+            "--docker-hub-token",
             REGISTRY_PASSWORD,
             "--version-tag",
             image_version,
@@ -73,7 +73,7 @@ def test_registry_with_wrong_credentials(
         args=[
             "--docker-hub-username",
             "bang",
-            "--docker-hub-password",
+            "--docker-hub-token",
             "boom",
             "--version-tag",
             image_version,
