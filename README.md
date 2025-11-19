@@ -31,8 +31,8 @@ This multi arch image supports AMD64 and ARM64 architectures.
 * v3.13
 
 **Operating system:**
-* [Debian Bookworm v12.1](https://www.debian.org/releases/bookworm/)
-* [Debian Bookworm slim v12.1](https://www.debian.org/releases/bookworm/)
+* [Debian Bookworm v13.2](https://www.debian.org/releases/trixie/)
+* [Debian Bookworm slim v13.2](https://www.debian.org/releases/trixie/)
 
 **CPU architectures**
 * linux/amd64
