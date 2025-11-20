@@ -6,6 +6,7 @@ on:
       - build/**
       - tests/**
       - poetry.lock
+      - .github
 
 jobs:
   code-quality:
