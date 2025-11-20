@@ -1,6 +1,8 @@
 """Basic test fixtures."""
 
+from collections.abc import Generator
 from random import randrange
+from typing import Any
 
 import pytest
 from python_on_whales import Builder, DockerClient
@@ -17,7 +19,7 @@ def docker_client() -> DockerClient:
 
 
 @pytest.fixture(scope="session")
-def pow_buildx_builder(docker_client: DockerClient) -> Builder:
+def pow_buildx_builder(docker_client: DockerClient) -> Generator[Builder, Any, None]:
     """Provide a Pyhton on Whales BuildX builder instance.
 
     :param docker_client:

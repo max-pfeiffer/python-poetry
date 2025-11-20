@@ -1,6 +1,8 @@
 """Test fixtures for image publishing."""
 
+from collections.abc import Generator
 from os import getenv
+from typing import Any
 
 import pytest
 from click.testing import CliRunner
@@ -10,7 +12,7 @@ from tests.constants import REGISTRY_PASSWORD, REGISTRY_USERNAME
 
 
 @pytest.fixture(scope="package")
-def publish_registry_container() -> DockerRegistryContainer:
+def publish_registry_container() -> Generator[DockerRegistryContainer, Any, None]:
     """Provide a Registry container locally for publishing the image.
 
     :return:
