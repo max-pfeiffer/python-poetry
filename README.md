@@ -1,9 +1,13 @@
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![codecov](https://codecov.io/gh/max-pfeiffer/python-poetry/branch/main/graph/badge.svg?token=WQI2SJJLZN)](https://codecov.io/gh/max-pfeiffer/python-poetry)
-![pipeline workflow](https://github.com/max-pfeiffer/python-poetry/actions/workflows/pipeline.yml/badge.svg)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/pfeiffermax/python-poetry?sort=semver)
 ![Docker Pulls](https://img.shields.io/docker/pulls/pfeiffermax/python-poetry)
+
+[![Code Quality](https://github.com/max-pfeiffer/python-poetry/actions/workflows/code-quality.yaml/badge.svg)](https://github.com/max-pfeiffer/python-poetry/actions/workflows/code-quality.yaml)
+[![Test Image Build](https://github.com/max-pfeiffer/python-poetry/actions/workflows/test-image-build.yaml/badge.svg)](https://github.com/max-pfeiffer/python-poetry/actions/workflows/test-image-build.yaml)
+[![Publish Images](https://github.com/max-pfeiffer/python-poetry/actions/workflows/publish-images.yaml/badge.svg)](https://github.com/max-pfeiffer/python-poetry/actions/workflows/publish-images.yaml)
+
 # python-poetry - Docker Image
 A Python Docker image with [Poetry](https://python-poetry.org/) installed and
 ready to use. You can use this image as a builder base or base image for your
