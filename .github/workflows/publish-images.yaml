@@ -1,9 +1,6 @@
 name: Publish Images
 
 on:
-  release:
-    types:
-      - published
   push:
     tags:
       - '*'
