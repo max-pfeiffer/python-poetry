@@ -1,6 +1,8 @@
 """Test fixtures for image build tests."""
 
+from collections.abc import Generator
 from os import getenv
+from typing import Any
 
 import pytest
 from build.constants import PLATFORMS
@@ -12,7 +14,7 @@ from tests.constants import CONTEXT, REGISTRY_PASSWORD, REGISTRY_USERNAME
 
 
 @pytest.fixture(scope="package")
-def registry_container() -> DockerRegistryContainer:
+def registry_container() -> Generator[DockerRegistryContainer, Any, None]:
     """Provide a Registry container locally for publishing the image.
 
     :return:

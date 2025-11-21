@@ -3,10 +3,18 @@ name: Code Quality
 on:
   push:
     paths:
+      - .github/**
       - build/**
       - tests/**
       - poetry.lock
-      - .github
+    tags-ignore:
+      - '*'
+  pull_request:
+    paths:
+      - .github/**
+      - build/**
+      - tests/**
+      - poetry.lock
 
 jobs:
   code-quality:
