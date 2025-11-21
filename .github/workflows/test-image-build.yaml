@@ -3,10 +3,10 @@ name: Test Image Build
 on:
   push:
     paths:
+      - .github/**
       - build/**
       - tests/**
       - poetry.lock
-      - .github
     tags-ignore:
       - '*'
 
